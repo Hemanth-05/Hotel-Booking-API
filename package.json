@@ -1,0 +1,23 @@
+{
+  "name": "hotel-booking-api",
+  "version": "1.0.0",
+  "description": "Its an API for managing bookings for hotel",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --env-file=.env --watch src/server.js"
+  },
+  "author": "Team 12",
+  "type": "module",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "globals": "^16.2.0",
+    "morgan": "^1.10.0",
+    "prettier": "^3.6.1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
