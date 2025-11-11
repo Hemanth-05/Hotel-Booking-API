@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  OWNER
+  GUEST
+}
+
+enum BookingStatus {
+  CONFIRMED
+  CANCELLED
+}
+
+model User {
+  id        String  @id @default(cuid())
+  name      String?
+  email     String  @unique
+  password  String
+  role      Role    @default(GUEST)
+
+  hotels    Hotel[]          @relation("OwnerHotels")
+  bookings  Booking[]        @relation("GuestBookings")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Hotel {
+  id           String   @id @default(cuid())
+  ownerId      String?
+  name         String
+  city         String
+  address      String
+  rating       Float?
+  isPublished  Boolean  @default(false)
+
+  owner        User?    @relation("OwnerHotels", fields: [ownerId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  rooms        Room[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([ownerId])
+}
+
+model Room {
+  id            String   @id @default(cuid())
+  hotelId       String
+  roomNumber    Int
+  capacity      Int
+  pricePerNight Decimal  @db.Decimal(10, 2)
+  isPublished   Boolean  @default(false)
+
+  hotel         Hotel    @relation(fields: [hotelId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  bookings      Booking[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([hotelId, roomNumber])
+  @@index([hotelId])
+}
+
+model Booking {
+  id         String        @id @default(cuid())
+  roomId     String
+  guestId    String
+  startDate  DateTime
+  endDate    DateTime
+  guests     Int
+  status     BookingStatus @default(CONFIRMED)
+  total      Decimal       @db.Decimal(10, 2)
+
+  room       Room          @relation(fields: [roomId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  guest      User          @relation("GuestBookings", fields: [guestId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([guestId])
+  @@index([roomId, startDate, endDate])
+}
