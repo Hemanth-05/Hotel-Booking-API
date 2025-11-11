@@ -20,22 +20,22 @@ enum BookingStatus {
 }
 
 model User {
-  id        String  @id @default(cuid())
+  id        Int      @id @default(autoincrement())
   name      String?
-  email     String  @unique
+  email     String   @unique
   password  String
-  role      Role    @default(GUEST)
+  role      Role     @default(GUEST)
 
-  hotels    Hotel[]          @relation("OwnerHotels")
-  bookings  Booking[]        @relation("GuestBookings")
+  hotels    Hotel[]  @relation("OwnerHotels")
+  bookings  Booking[] @relation("GuestBookings")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Hotel {
-  id           String   @id @default(cuid())
-  ownerId      String?
+  id           Int      @id @default(autoincrement())
+  ownerId      Int?
   name         String
   city         String
   address      String
@@ -52,8 +52,8 @@ model Hotel {
 }
 
 model Room {
-  id            String   @id @default(cuid())
-  hotelId       String
+  id            Int      @id @default(autoincrement())
+  hotelId       Int
   roomNumber    Int
   capacity      Int
   pricePerNight Decimal  @db.Decimal(10, 2)
@@ -70,17 +70,17 @@ model Room {
 }
 
 model Booking {
-  id         String        @id @default(cuid())
-  roomId     String
-  guestId    String
+  id         Int           @id @default(autoincrement())
+  roomId     Int
+  guestId    Int
   startDate  DateTime
   endDate    DateTime
   guests     Int
-  status     BookingStatus @default(CONFIRMED)
-  total      Decimal       @db.Decimal(10, 2)
+  status     BookingStatus  @default(CONFIRMED)
+  total      Decimal        @db.Decimal(10, 2)
 
-  room       Room          @relation(fields: [roomId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  guest      User          @relation("GuestBookings", fields: [guestId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  room       Room           @relation(fields: [roomId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  guest      User           @relation("GuestBookings", fields: [guestId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
