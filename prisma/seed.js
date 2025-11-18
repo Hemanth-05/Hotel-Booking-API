@@ -72,7 +72,7 @@ try {
   // Create one test booking for the guest
   await prisma.booking.create({
     data: {
-      roomId: 1, // assuming first room created (autoincrement ID)
+      roomId: rooms[0].id, // assuming first room created (autoincrement ID)
       guestId: guest.id,
       startDate: new Date('2025-11-15'),
       endDate: new Date('2025-11-17'),
