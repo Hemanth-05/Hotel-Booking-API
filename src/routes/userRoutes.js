@@ -5,8 +5,8 @@ import {
   getMe,
   updateMe,
   deleteMe,
-  getAllUsers,
-  getHotelGuests
+  getAllUsersHandler,
+  getHotelGuestsHandler
 } from '../controllers/userController.js';
 
 const router = express.Router();
@@ -17,7 +17,7 @@ router.get('/me', getMe);
 router.patch('/me', updateMe);
 router.delete('/me', deleteMe);
 
-router.get('/admin/users', restrictTo('ADMIN'), getAllUsers);
-router.get('/owner/hotels/:hotelId/guests', restrictTo('OWNER'), getHotelGuests);
+router.get('/admin/users', restrictTo('ADMIN'), getAllUsersHandler);
+router.get('/owner/hotels/:hotelId/guests', restrictTo('OWNER'), getHotelGuestsHandler);
 
 export default router;
