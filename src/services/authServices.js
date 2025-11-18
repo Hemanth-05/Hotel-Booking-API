@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { Prisma } from '../generated/prisma/index.js';
 import { createUser, findUserByEmail } from '../respositories/userRepo.js';
 
@@ -33,5 +34,12 @@ export async function logIn(email, password) {
         throw error;
     }
 
-    return user; 
+    // create JWT token
+    const token = jwt.sign(
+        { id: user.id, email: user.email, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+    );
+
+    return { user, token };
 }
