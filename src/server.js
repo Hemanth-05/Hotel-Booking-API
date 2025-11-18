@@ -1,4 +1,5 @@
 import express from 'express';
+import authRoutes from './routes/authRoutes.js';
 
 //USERS - Thanh lam
 import authRoutes from './routes/authRoutes.js';
@@ -14,10 +15,15 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json());
+<<<<<<< HEAD
 
 //Users - THANH LAM
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+=======
+app.use('/api/auth', authRoutes);
+// app.use('/api/users', userRoutes);
+>>>>>>> ee2d7e554d5f0fb70655c9f12260a474cff7ecc3
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');

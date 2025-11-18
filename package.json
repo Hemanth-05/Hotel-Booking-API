@@ -20,10 +20,17 @@
     "prisma": "^6.19.0"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@prisma/client": "^6.19.0",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2"
+=======
+    "@prisma/client": "^6.12.0",
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.3.0"
+>>>>>>> ee2d7e554d5f0fb70655c9f12260a474cff7ecc3
   }
 }
