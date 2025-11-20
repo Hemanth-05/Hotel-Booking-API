@@ -1,30 +1,50 @@
-import prisma from '../config/db.js';
+import prisma from "../config/db.js";
 
-export const restrictTo = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return res.status(403).json({
-        error: 'You do not have permission to perform this action'
-      });
-    }
-    next();
-  };
+const hotelSelect = {
+  id: true,
+  ownerId: true,
+  name: true,
+  city: true,
+  address: true,
+  rating: true,
+  isPublished: true,
+  createdAt: true,
+  updatedAt: true,
 };
 
-// Ensure only the owner or admin can modify a hotel
-export const ownsHotel = async (req, res, next) => {
-  const hotelId = parseInt(req.params.id);   // IMPORTANT FIX
-
-  const hotel = await prisma.hotel.findUnique({
-    where: { id: hotelId },
-    select: { ownerId: true }
+export async function create(data) {
+  return await prisma.hotel.create({
+    data,
+    select: hotelSelect,
   });
+}
 
-  if (!hotel || (hotel.ownerId !== req.user.id && req.user.role !== 'ADMIN')) {
-    return res.status(403).json({
-      error: 'You do not own this hotel'
-    });
-  }
+export async function findAll() {
+  return await prisma.hotel.findMany({
+    select: hotelSelect,
+    orderBy: { createdAt: "desc" },
+  });
+}
 
-  next();
-};
+export async function findByOwner(ownerId) {
+  return await prisma.hotel.findMany({
+    where: { ownerId },
+    select: hotelSelect,
+    orderBy: { createdAt: "desc" },
+  });
+}
+
+export async function update(id, data) {
+  return await prisma.hotel.update({
+    where: { id },
+    data,
+    select: hotelSelect,
+  });
+}
+
+export async function remove(id) {
+  return await prisma.hotel.delete({
+    where: { id },
+    select: hotelSelect,
+  });
+}
