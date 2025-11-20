@@ -3,6 +3,7 @@ import authRoutes from './routes/authRoutes.js';
 
 //USERS - Thanh lam
 import userRoutes from './routes/userRoutes.js';
+import hotelRoutes from './routes/hotelRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,6 +17,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/hotels', hotelRoutes);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
