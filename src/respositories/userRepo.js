@@ -1,14 +1,14 @@
-import prisma from '../config/db.js'
+import prisma from '../config/db.js';
 
-export async function createUser(data){
+export async function createUser(data) {
     return await prisma.user.create({
-  data,
-  select: { id: true, name: true, email: true, role: true }
+        data,
+        select: { id: true, name: true, email: true, role: true }
     });
 }
 
-export async function findUserByEmail(email){
-    return await prisma.user.findUnique({where: {email}});
+export async function findUserByEmail(email) {
+    return await prisma.user.findUnique({ where: { email } });
 }
 
 export async function updateUser(userId, data) {
@@ -24,7 +24,7 @@ export async function deleteUser(userId) {
         where: { id: userId },
         data: {
             email: `deleted_${Date.now()}@deleted.com`,
-            name: 'Deleted User'
+            name: 'Deleted User',
         }
     });
 }
