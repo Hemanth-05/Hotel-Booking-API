@@ -1,6 +1,7 @@
 import express from 'express';
 import { protect } from '../middleware/auth.js';
 import { restrictTo } from '../middleware/authorize.js';
+import { validateUpdateUser } from '../middleware/userValidation.js';
 import {
   getMe,
   updateMe,
@@ -14,7 +15,7 @@ const router = express.Router();
 router.use(protect);
 
 router.get('/me', getMe);
-router.patch('/me', updateMe);
+router.patch('/me', validateUpdateUser, updateMe);
 router.delete('/me', deleteMe);
 
 router.get('/admin/users', restrictTo('ADMIN'), getAllUsersHandler);
