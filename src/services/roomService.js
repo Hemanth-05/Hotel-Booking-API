@@ -51,7 +51,14 @@ export async function listRooms(query) {
     maxPrice: query.maxPrice ? parseFloat(query.maxPrice) : undefined,
   };
 
-  return getPublishedRooms(filters);
+  const rooms = await getPublishedRooms(filters);
+  return rooms.map((room) => ({
+    id: room.id,
+    hotelName: room.hotel.name,
+    roomNumber: room.roomNumber,
+    capacity: room.capacity,
+    pricePerNight: room.pricePerNight,
+  }));
 }
 
 export async function getPublicRoomById(id) {
