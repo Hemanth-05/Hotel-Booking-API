@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { Prisma } from "../generated/prisma/index.js";
 import {
     createUser,
     findUserByEmail,
@@ -9,20 +10,35 @@ import {
     getHotelGuests as repoGetHotelGuests 
 } from "../respositories/userRepo.js";
 
-export async function updateUser(userId, name, password) {
+export async function updateUser(userId, name, password, email) {
     const updateData = {};
 
     if (name) updateData.name = name;
+    if (email) updateData.email = email;
     if (password) {
         updateData.password = await bcrypt.hash(password, 12);
     }
 
     
     if (Object.keys(updateData).length === 0) {
-        throw new Error("No data provided to update");
+        const error = new Error("No data provided to update");
+        error.status = 400;
+        throw error;
     }
 
-    return await repoUpdateUser(userId, updateData); 
+    try {
+        return await repoUpdateUser(userId, updateData); 
+    } catch (err) {
+        if (
+            err instanceof Prisma.PrismaClientKnownRequestError &&
+            err.code === "P2002"
+        ) {
+            const error = new Error("Email has already been used");
+            error.status = 409;
+            throw error;
+        }
+        throw err;
+    }
 }
 
 

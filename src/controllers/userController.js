@@ -11,8 +11,8 @@ export const getMe = async (req, res, next) => {
 
 export const updateMe = async (req, res, next) => {
     try {
-        const { name, password } = req.body;
-        const updatedUser = await updateUser(req.user.id, name, password);
+        const { name, password, email } = req.body;
+        const updatedUser = await updateUser(req.user.id, name, password, email);
         res.status(200).json({ message: "Profile updated successfully", user: updatedUser });
     } catch (error) {
         next(error);
