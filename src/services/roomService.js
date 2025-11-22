@@ -1,5 +1,5 @@
 // src/services/roomService.js
-import prisma from "../config/prismaClient.js";
+import prisma from "../config/db.js";
 import {
   createRoom,
   getRoomById,
@@ -7,7 +7,7 @@ import {
   updateRoom,
   deleteRoom,
   findFutureBookingForRoom,
-} from "../repositories/roomRepo.js";
+} from "../respositories/roomRepo.js";
 
 function forbid(message = "Forbidden") {
   const err = new Error(message);
@@ -34,7 +34,7 @@ export async function createRoomForHotel(hotelId, roomData, currentUser) {
   }
 
   // Simple validation here (you might already do this via express-validator)
-  if (!roomData.roomNumber || !roomData.capacity || !roomData.pricePerNight) {
+  if (!roomData.roomNumber || !roomData.capacity || roomData.pricePerNight === undefined) {
     const err = new Error("roomNumber, capacity and pricePerNight are required");
     err.status = 400;
     throw err;
@@ -48,7 +48,7 @@ export async function listRooms(query) {
   const filters = {
     city: query.city,
     capacity: query.capacity ? parseInt(query.capacity) : undefined,
-    maxPrice: query.maxPrice ? query.maxPrice : undefined,
+    maxPrice: query.maxPrice ? parseFloat(query.maxPrice) : undefined,
   };
 
   return getPublishedRooms(filters);

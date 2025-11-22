@@ -1,9 +1,9 @@
 import express from 'express';
 import authRoutes from './routes/authRoutes.js';
 
-//USERS - Thanh lam
 import userRoutes from './routes/userRoutes.js';
 import hotelRoutes from './routes/hotelRoutes.js';
+import roomRoutes from './routes/roomRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +18,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/hotels', hotelRoutes);
+app.use('/api/rooms', roomRoutes);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');

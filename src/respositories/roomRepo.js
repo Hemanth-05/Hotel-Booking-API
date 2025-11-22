@@ -1,5 +1,5 @@
 // src/repositories/roomRepo.js
-import prisma from "../config/prismaClient.js";
+import prisma from "../config/db.js";
 
 export async function createRoom(hotelId, data) {
   return prisma.room.create({
@@ -67,7 +67,7 @@ export async function findFutureBookingForRoom(roomId) {
   return prisma.booking.findFirst({
     where: {
       roomId,
-      checkIn: {
+      startDate: {
         gt: new Date(),
       },
     },

@@ -1,7 +1,13 @@
 // src/routes/roomRoutes.js
 import express from "express";
-import { protect } from "../middleware/authMiddleware.js";
-import { requireRole } from "../middleware/requireRole.js"; // if you have this
+import { protect } from "../middleware/auth.js";
+import { restrictTo } from "../middleware/authorize.js";
+import {
+  validateCreateRoom,
+  validateUpdateRoom,
+  validateRoomIdParam,
+  validateListRooms,
+} from "../middleware/roomValidation.js";
 import {
   createRoomController,
   getRoomsController,
@@ -13,18 +19,36 @@ import {
 const router = express.Router();
 
 // CREATE room 
-router.post("/hotels/:hotelId/rooms", protect, requireRole("OWNER", "ADMIN"), createRoomController);
+router.post(
+  "/hotels/:hotelId/rooms",
+  protect,
+  restrictTo("OWNER", "ADMIN"),
+  validateCreateRoom,
+  createRoomController
+);
 
 // READ – list all published rooms with filters
-router.get("/rooms", getRoomsController);
+router.get("/", validateListRooms, getRoomsController);
 
 // READ – single room 
-router.get("/rooms/:id", getRoomByIdController);
+router.get("/:id", validateRoomIdParam, getRoomByIdController);
 
 // UPDATE – /api/rooms/:id (Admin and Owner)
-router.patch("/rooms/:id", protect, requireRole("OWNER", "ADMIN"), updateRoomController);
+router.patch(
+  "/:id",
+  protect,
+  restrictTo("OWNER", "ADMIN"),
+  validateUpdateRoom,
+  updateRoomController
+);
 
 // DELETE – /api/rooms/:id (Admin and Owner, block if future bookings)
-router.delete("/rooms/:id", protect, requireRole("OWNER", "ADMIN"), deleteRoomController);
+router.delete(
+  "/:id",
+  protect,
+  restrictTo("OWNER", "ADMIN"),
+  validateRoomIdParam,
+  deleteRoomController
+);
 
 export default router;
