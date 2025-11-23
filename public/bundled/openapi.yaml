@@ -4,7 +4,7 @@ info:
   description: Full hotel booking system
   version: 1.0.0
 servers:
-  - url: http://localhost:3000/api
+  - url: http://localhost:3000/api-docs
 security:
   - bearerAuth: []
 paths:

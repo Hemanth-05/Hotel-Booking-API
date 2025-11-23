@@ -4,10 +4,9 @@
   "description": "Its an API for managing bookings for hotel",
   "main": "server.js",
   "scripts": {
-    "dev": "node --env-file=.env --watch src/server.js",
-    "start": "node src/server.js",
-    "docs:build": "redocly bundle docs/openapi.yaml --output docs/bundle.yaml",
-    "docs:preview": "redocly preview-docs docs/openapi.yaml"
+  "dev": "node --env-file=.env --watch src/server.js",
+  "docs:build": "npx @redocly/cli bundle docs/openapi.yaml --output public/bundled/openapi.yaml",
+  "docs:preview": "npx @redocly/cli preview-docs docs/openapi.yaml"
   },
   "author": "Team 12",
   "type": "module",
