@@ -7,7 +7,14 @@ export function createBookingInDB(data) {
 export function getUserBookingsFromDB(userId) {
   return prisma.booking.findMany({
     where: { guestId: userId },
-    include: { room: true }
+    include: {
+      room: {
+        include: {
+          hotel: { select: { id: true, name: true } },
+        },
+      },
+      guest: { select: { id: true, name: true, email: true } },
+    }
   });
 }
 

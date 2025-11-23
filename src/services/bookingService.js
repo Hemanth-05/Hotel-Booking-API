@@ -71,7 +71,16 @@ export async function createBookingService({ roomId, startDate, endDate, guests,
 }
 
 export function getUserBookingsService(userId) {
-  return getUserBookingsFromDB(userId);
+  return getUserBookingsFromDB(userId).then((bookings) =>
+    bookings.map((b) => ({
+      hotelName: b.room?.hotel?.name,
+      roomNumber: b.room?.roomNumber,
+      guests: b.guests,
+      cost: b.total,
+      username: b.guest?.name,
+      status: b.status,
+    }))
+  );
 }
 
 export function getOwnerBookingsService(ownerId, hotelId) {
