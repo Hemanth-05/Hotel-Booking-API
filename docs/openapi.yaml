@@ -6,7 +6,7 @@ info:
   description: API for hotel, room, booking, and user management
 
 servers:
-  - url: http://localhost:3000/api-docs
+  - url: http://localhost:3000/
     description: Local server
 
 tags:
@@ -18,83 +18,83 @@ tags:
 
 paths:
   /api/auth/signup:
-    $ref: docs/paths/auth.signup.yaml
+    $ref: paths/auth.signup.yaml
 
   /api/auth/login:
-    $ref: docs/paths/auth.login.yaml
+    $ref: paths/auth.login.yaml
 
   /api/hotels:
-    $ref: docs/paths/hotels.main.yaml
+    $ref: paths/hotels.main.yaml
 
   /api/admin/hotels:
-    $ref: docs/paths/hotels.admin.yaml
+    $ref: paths/hotels.admin.yaml
 
   /api/owner/hotels:
-    $ref: docs/paths/hotels.owner.yaml
+    $ref: paths/hotels.owner.yaml
 
   /api/hotels/{id}:
-    $ref: docs/paths/hotels.id.yaml
+    $ref: paths/hotels.id.yaml
 
   /api/hotels/{hotelId}/rooms:
-    $ref: docs/paths/rooms.byHotel.yaml
+    $ref: paths/rooms.byHotel.yaml
 
   /api/rooms:
-    $ref: docs/paths/rooms.main.yaml
+    $ref: paths/rooms.main.yaml
 
   /api/rooms/{id}:
-    $ref: docs/paths/rooms.id.yaml
+    $ref: paths/rooms.id.yaml
 
   /api/bookings:
-    $ref: docs/paths/bookings.main.yaml
+    $ref: paths/bookings.main.yaml
 
   /api/bookings/{id}:
-    $ref: docs/paths/bookings.id.yaml
+    $ref: paths/bookings.id.yaml
 
   /api/owner/bookings:
-    $ref: docs/paths/bookings.owner.yaml
+    $ref: paths/bookings.owner.yaml
 
   /api/admin/bookings:
-    $ref: docs/paths/bookings.admin.yaml
+    $ref: paths/bookings.admin.yaml
 
   /api/admin/users:
-    $ref: docs/paths/users.admin.yaml
+    $ref: paths/users.admin.yaml
 
   /api/owner/hotels/{hotelId}/guests:
-    $ref: docs/paths/users.guests.yaml
+    $ref: paths/users.guests.yaml
 
   /api/users/me:
-    $ref: docs/paths/users.me.yaml
+    $ref: paths/users.me.yaml
 
 
 components:
   schemas:
     Hotel:
-      $ref: docs/components/schemas/Hotel.yaml
+      $ref: components/schemas/Hotel.yaml
 
     Room:
-      $ref: docs/components/schemas/Room.yaml
+      $ref: components/schemas/Room.yaml
 
     Booking:
-      $ref: docs/components/schemas/Booking.yaml
+      $ref: components/schemas/Booking.yaml
 
     User:
-      $ref: docs/components/schemas/User.yaml
+      $ref: components/schemas/User.yaml
 
     LoginResponse:
-      $ref: docs/components/schemas/Auth.yaml
+      $ref: components/schemas/Auth.yaml
 
   responses:
     ErrorResponse:
-      $ref: docs/components/responses/ErrorResponse.yaml
+      $ref: components/responses/ErrorResponse.yaml
 
     Unauthorized:
-      $ref: docs/components/responses/Unauthorized.yaml
+      $ref: components/responses/Unauthorized.yaml
 
     Forbidden:
-      $ref: docs/components/responses/Forbidden.yaml
+      $ref: components/responses/Forbidden.yaml
 
     NotFound:
-      $ref: docs/components/responses/NotFound.yaml
+      $ref: components/responses/NotFound.yaml
 
   securitySchemes:
     bearerAuth:

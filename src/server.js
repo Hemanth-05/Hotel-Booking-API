@@ -26,7 +26,7 @@ app.use('/api/rooms', roomRoutes);
 
 //swager ui 
 const specs = YAML.load('./docs/openapi.yaml');
-app.use('api-docs',swaggerUi.serve,swaggerUi.setup(specs));
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
