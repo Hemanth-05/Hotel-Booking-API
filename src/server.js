@@ -25,13 +25,8 @@ app.use('/api/hotels', hotelRoutes);
 app.use('/api/rooms', roomRoutes);
 
 //swager ui 
-try {
-  const swaggerDocument = YAML.load('./docs/openapi.yaml');
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-  console.log('API Documentation → http://localhost:3000/api-docs');
-} catch (err) {
-  console.log('Swagger docs not loaded (openapi.yaml missing or invalid):', err.message);
-}
+const specs = YAML.load('./docs/openapi.yaml');
+app.use('api-docs',swaggerUi.serve,swaggerUi.setup(specs));
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
