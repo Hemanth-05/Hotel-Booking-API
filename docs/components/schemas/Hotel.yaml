@@ -17,7 +17,7 @@ properties:
     maximum: 5
     nullable: true
   isPublished:
-    type: boolean
+    type: boolean 
     default: false
   ownerId:
     type: integer

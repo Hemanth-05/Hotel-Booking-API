@@ -1,11 +1,35 @@
 openapi: 3.1.0
 info:
   title: Hotel Booking API
-  description: Full hotel booking system
+  description: Complete hotel booking system with role-based access (Admin / Owner / Guest)
   version: 1.0.0
+  contact:
+    name: API Support
+    email: support@hotelbooking.com
 
+# First URL = instant pretty preview in Swagger Editor/Redoc
+# The rest = real servers used by code generators and production
 servers:
   - url: http://localhost:3000/api-docs
+    description: Swagger UI – Open this file directly for live interactive docs
+  - url: http://localhost:3000/api
+    description: Local development server
+  - url: https://api.hotelbooking.com/api
+    description: Production server
+
+tags:
+  - name: Auth
+    description: Registration and authentication endpoints
+  - name: Users
+    description: User profile and management
+  - name: Admin
+    description: Admin-only endpoints
+  - name: Owner
+    description: Hotel owner endpoints
+  - name: Hotels
+    description: Hotel management
+  - name: Rooms
+    description: Room management and availability search
 
 components:
   securitySchemes:
@@ -13,6 +37,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: JWT token obtained after login. Example → Bearer <your-jwt-token>
 
   schemas:
     User:
@@ -33,48 +58,54 @@ components:
       $ref: './components/responses/400.yaml'
     Unauthorized:
       $ref: './components/responses/401.yaml'
+    Forbidden:
+      $ref: './components/responses/403.yaml'
     NotFound:
       $ref: './components/responses/404.yaml'
 
+  # Optional but recommended for large projects
+  parameters: {}
+  examples: {}
+  requestBodies: {}
+  headers: {}
+  links: {}
+  callbacks: {}
+
+# Global security – all endpoints require JWT unless overridden
 security:
   - bearerAuth: []
 
 paths:
+  # ── Auth ─────────────────────────────────────
   /auth/signup:
-    $ref: './components/paths/auth.yaml#/paths/signup'
-
+    $ref: './components/paths/auth.yaml#/signup'
   /auth/login:
-    $ref: './components/paths/auth.yaml#/paths/login'
+    $ref: './components/paths/auth.yaml#/login'
 
+  # ── Users ────────────────────────────────────
   /users/me:
-    $ref: './components/paths/users.yaml#/paths/me'
+    $ref: './components/paths/users.yaml#/me'
+  /admin/users:
+    $ref: './components/paths/users.yaml#/adminGetAll'
+  /owner/hotels/{hotelId}/guests:
+    $ref: './components/paths/users.yaml#/ownerGetGuests'
 
-  /users/admin/users:
-    $ref: './components/paths/users.yaml#/paths/adminGetAll'
-
-  /users/owner/hotels/{hotelId}/guests:
-    $ref: './components/paths/users.yaml#/paths/ownerGetGuests'
-
+  # ── Hotels ───────────────────────────────────
   /hotels:
-    $ref: './components/paths/hotels.yaml#/paths/create'
-
-  /hotels/admin:
-    $ref: './components/paths/hotels.yaml#/paths/adminAll'
-
-  /hotels/owner:
-    $ref: './components/paths/hotels.yaml#/paths/ownerAll'
-
+    $ref: './components/paths/hotels.yaml#/create'
+  /admin/hotels:
+    $ref: './components/paths/hotels.yaml#/adminAll'
+  /owner/hotels:
+    $ref: './components/paths/hotels.yaml#/ownerAll'
   /hotels/{id}:
-    $ref: './components/paths/hotels.yaml#/paths/byId'
-
+    $ref: './components/paths/hotels.yaml#/byId'
   /hotels/{id}/owner:
-    $ref: './components/paths/hotels.yaml#/paths/assignOwner'
+    $ref: './components/paths/hotels.yaml#/assignOwner'
 
-  /rooms:
-    $ref: './components/paths/rooms.yaml#/paths/search'
-
-  /rooms/hotels/{hotelId}/rooms:
-    $ref: './components/paths/rooms.yaml#/paths/create'
-
+  # ── Rooms ────────────────────────────────────
+  /rooms/search:
+    $ref: './components/paths/rooms.yaml#/search'
+  /hotels/{hotelId}/rooms:
+    $ref: './components/paths/rooms.yaml#/create'
   /rooms/{id}:
-    $ref: './components/paths/rooms.yaml#/paths/byId'
+    $ref: './components/paths/rooms.yaml#/byId'
