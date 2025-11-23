@@ -52,23 +52,29 @@ security:
   - bearerAuth: []
 
 paths:
-  # AUTH
-  /auth/signup: { $ref: './paths/auth.yaml#/signup' }
-  /auth/login:  { $ref: './paths/auth.yaml#/login' }
-
-  # USERS
-  /users/me:                    { $ref: './paths/users.yaml#/me' }
-  /users/admin/users:           { $ref: './paths/users.yaml#/adminGetAll' }
-  /users/owner/hotels/{hotelId}/guests: { $ref: './paths/users.yaml#/ownerGetGuests' }
-
-  # HOTELS
-  /hotels:                      { $ref: './paths/hotels.yaml#/create' }
-  /hotels/admin:                { $ref: './paths/hotels.yaml#/adminAll' }
-  /hotels/owner:                { $ref: './paths/hotels.yaml#/ownerAll' }
-  /hotels/{id}:                 { $ref: './paths/hotels.yaml#/byId' }
-  /hotels/{id}/owner:           { $ref: './paths/hotels.yaml#/assignOwner' }
-
-  # ROOMS
-  /rooms:                       { $ref: './paths/rooms.yaml#/search' }
-  /rooms/hotels/{hotelId}/rooms: { $ref: './paths/rooms.yaml#/create' }
-  /rooms/{id}:                  { $ref: './paths/rooms.yaml#/byId' }
+  /auth/signup:
+    $ref: './paths/auth.yaml#/signup'
+  /auth/login:
+    $ref: './paths/auth.yaml#/login'
+  /users/me:
+    $ref: './paths/users.yaml#/me'
+  /users/admin/users:
+    $ref: './paths/users.yaml#/adminGetAll'
+  /users/owner/hotels/{hotelId}/guests:
+    $ref: './paths/users.yaml#/ownerGetGuests'
+  /hotels:
+    $ref: './paths/hotels.yaml#/create'
+  /hotels/admin:
+    $ref: './paths/hotels.yaml#/adminAll'
+  /hotels/owner:
+    $ref: './paths/hotels.yaml#/ownerAll'
+  /hotels/{id}:
+    $ref: './paths/hotels.yaml#/byId'
+  /hotels/{id}/owner:
+    $ref: './paths/hotels.yaml#/assignOwner'
+  /rooms:
+    $ref: './paths/rooms.yaml#/search'
+  /rooms/hotels/{hotelId}/rooms:
+    $ref: './paths/rooms.yaml#/create'
+  /rooms/{id}:
+    $ref: './paths/rooms.yaml#/byId'
