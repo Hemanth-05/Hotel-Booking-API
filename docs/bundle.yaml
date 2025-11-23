@@ -1,0 +1,437 @@
+openapi: 3.1.0
+info:
+  title: Hotel Booking API
+  description: Full-featured hotel management & booking system
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Development
+security:
+  - bearerAuth: []
+tags:
+  - name: Auth
+  - name: Users
+  - name: Hotels
+  - name: Rooms
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                name:
+                  type:
+                    - string
+                    - 'null'
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '409':
+          $ref: '#/components/responses/400'
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login & get JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '401':
+          $ref: '#/components/responses/401'
+  /users/me:
+    get:
+      tags:
+        - Users
+      summary: Get current user profile
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: ../components/schemas/User.yaml
+    patch:
+      tags:
+        - Users
+      summary: Update profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type:
+                    - string
+                    - 'null'
+                password:
+                  type: string
+                  minLength: 8
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+    delete:
+      tags:
+        - Users
+      summary: Delete account (soft delete)
+      responses:
+        '204':
+          description: No Content
+  /users/admin/users:
+    get:
+      tags:
+        - Users
+      summary: '[ADMIN] Get all users'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+  /users/owner/hotels/{hotelId}/guests:
+    get:
+      tags:
+        - Users
+      summary: '[OWNER] Get guests of my hotel'
+      parameters:
+        - name: hotelId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+  /hotels:
+    post:
+      tags:
+        - Hotels
+      summary: '[ADMIN] Create hotel'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hotel'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+  /hotels/admin:
+    get:
+      tags:
+        - Hotels
+      summary: '[ADMIN] Get all hotels'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+  /hotels/owner:
+    get:
+      tags:
+        - Hotels
+      summary: '[OWNER] Get my hotels'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+  /hotels/{id}:
+    patch:
+      tags:
+        - Hotels
+      summary: '[ADMIN | OWNER] Update hotel'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hotel'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+    delete:
+      tags:
+        - Hotels
+      summary: '[ADMIN] Delete hotel'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content
+  /hotels/{id}/owner:
+    patch:
+      tags:
+        - Hotels
+      summary: '[ADMIN] Assign owner'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ownerId
+              properties:
+                ownerId:
+                  type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+  /rooms:
+    get:
+      tags:
+        - Rooms
+      summary: Public – Search published rooms
+      parameters:
+        - name: city
+          in: query
+          schema:
+            type: string
+        - name: capacity
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+        - name: maxPrice
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+  /rooms/hotels/{hotelId}/rooms:
+    post:
+      tags:
+        - Rooms
+      summary: '[ADMIN | OWNER] Create room'
+      parameters:
+        - name: hotelId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+  /rooms/{id}:
+    get:
+      tags:
+        - Rooms
+      summary: Get room (public if published)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+    patch:
+      tags:
+        - Rooms
+      summary: '[ADMIN | OWNER] Update room'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+    delete:
+      tags:
+        - Rooms
+      summary: '[ADMIN | OWNER] Delete room'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+        - email
+        - role
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type:
+            - string
+            - 'null'
+        email:
+          type: string
+          format: email
+        role:
+          type: string
+          enum:
+            - ADMIN
+            - OWNER
+            - GUEST
+          default: GUEST
+    Hotel:
+      type: object
+      required:
+        - name
+        - city
+        - address
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          minLength: 3
+        city:
+          type: string
+        address:
+          type: string
+        rating:
+          type: number
+          minimum: 0
+          maximum: 5
+          nullable: true
+        isPublished:
+          type: boolean
+          default: false
+        ownerId:
+          type: integer
+          nullable: true
+    Room:
+      type: object
+      required:
+        - hotelId
+        - roomNumber
+        - capacity
+        - pricePerNight
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        hotelId:
+          type: integer
+        roomNumber:
+          type: integer
+          minimum: 1
+        capacity:
+          type: integer
+          minimum: 1
+        pricePerNight:
+          type: number
+          format: float
+          minimum: 0
+        isPublished:
+          type: boolean
+          default: false
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+    '201':
+      description: Created
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    OK:
+      $ref: '#/components/responses/200'
+    Created:
+      $ref: '#/components/responses/201'
+    BadRequest:
+      $ref: '#/components/responses/400'
+    Unauthorized:
+      $ref: '#/components/responses/401'
+    NotFound:
+      $ref: '#/components/responses/404'

@@ -1,23 +1,18 @@
 openapi: 3.1.0
 info:
   title: Hotel Booking API
-  description: Full-featured hotel management & booking system with role-based access (ADMIN, OWNER, GUEST)
+  description: Full-featured hotel management & booking system
   version: 1.0.0
-  contact:
-    name: Your Name
 
 servers:
-  - url: http://localhost:3000/api-docs
-    description: Development server
+  - url: http://localhost:3000/api
+    description: Development
+
 tags:
   - name: Auth
-    description: Authentication & registration
   - name: Users
-    description: User profile & management
   - name: Hotels
-    description: Hotel CRUD (Admin & Owner)
   - name: Rooms
-    description: Room management & public search
 
 components:
   securitySchemes:
@@ -37,20 +32,16 @@ components:
       $ref: './components/schemas/Error.yaml'
 
   responses:
-    OK:
-      $ref: './components/responses/200.yaml'
-    Created:
-      $ref: './components/responses/201.yaml'
-    BadRequest:
-      $ref: './components/responses/400.yaml'
-    Unauthorized:
-      $ref: './components/responses/401.yaml'
-    NotFound:
-      $ref: './components/responses/404.yaml'
+    OK: { $ref: './components/responses/200.yaml' }
+    Created: { $ref: './components/responses/201.yaml' }
+    BadRequest: { $ref: './components/responses/400.yaml' }
+    Unauthorized: { $ref: './components/responses/401.yaml' }
+    NotFound: { $ref: './components/responses/404.yaml' }
 
 security:
   - bearerAuth: []
 
+# ← DÁN ĐOẠN PATHS MỚI VÀO ĐÂY
 paths:
   /auth/signup:
     $ref: './paths/auth.yaml#/signup'
