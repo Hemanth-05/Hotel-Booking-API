@@ -1,0 +1,17 @@
+patch:
+  tags: [Hotels]
+  summary: Update hotel (Admin/Owner)
+  security:
+    - bearerAuth: []
+  responses:
+    200:
+      description: Hotel updated
+
+delete:
+  tags: [Hotels]
+  summary: Delete hotel (Admin)
+  security:
+    - bearerAuth: []
+  responses:
+    204:
+      description: Hotel deleted

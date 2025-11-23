@@ -1,0 +1,8 @@
+get:
+  tags: [Hotels]
+  summary: Get hotels owned by current owner
+  security:
+    - bearerAuth: []
+  responses:
+    200:
+      description: Owner hotels

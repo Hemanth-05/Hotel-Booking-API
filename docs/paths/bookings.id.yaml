@@ -1,0 +1,17 @@
+patch:
+  tags: [Bookings]
+  summary: Update booking (Guest)
+  security:
+    - bearerAuth: []
+  responses:
+    200:
+      description: Booking updated
+
+delete:
+  tags: [Bookings]
+  summary: Delete booking (Admin)
+  security:
+    - bearerAuth: []
+  responses:
+    204:
+      description: Booking deleted

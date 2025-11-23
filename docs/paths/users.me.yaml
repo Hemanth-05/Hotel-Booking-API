@@ -1,0 +1,17 @@
+patch:
+  tags: [Users]
+  summary: Update own profile
+  security:
+    - bearerAuth: []
+  responses:
+    200:
+      description: Profile updated
+
+delete:
+  tags: [Users]
+  summary: Delete own account
+  security:
+    - bearerAuth: []
+  responses:
+    204:
+      description: Account deleted

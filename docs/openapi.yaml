@@ -6,7 +6,7 @@ info:
   description: API for hotel, room, booking, and user management
 
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3000/api-docs
     description: Local server
 
 tags:

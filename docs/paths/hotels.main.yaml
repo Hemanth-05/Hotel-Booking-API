@@ -1,0 +1,12 @@
+post:
+  tags: [Hotels]
+  summary: Create hotel (Admin)
+  security:
+    - bearerAuth: []
+  responses:
+    201:
+      description: Hotel created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Hotel.yaml

@@ -1,0 +1,8 @@
+get:
+  tags: [Users]
+  summary: Get all users (Admin)
+  security:
+    - bearerAuth: []
+  responses:
+    200:
+      description: List of users
