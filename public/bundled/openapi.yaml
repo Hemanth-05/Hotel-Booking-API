@@ -66,17 +66,10 @@ paths:
     get:
       tags:
         - Users
-      summary: Get current user profile
+      summary: Get profile
       responses:
         '200':
           $ref: '#/components/responses/200'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  user:
-                    $ref: ../components/schemas/User.yaml
     patch:
       tags:
         - Users
@@ -93,7 +86,6 @@ paths:
                     - 'null'
                 password:
                   type: string
-                  minLength: 8
       responses:
         '200':
           $ref: '#/components/responses/200'
@@ -103,12 +95,12 @@ paths:
       summary: Delete account
       responses:
         '204':
-          description: No Content
+          description: No content
   /users/admin/users:
     get:
       tags:
         - Users
-      summary: '[ADMIN] Get all users'
+      summary: Admin get all users
       responses:
         '200':
           $ref: '#/components/responses/200'
@@ -116,7 +108,7 @@ paths:
     get:
       tags:
         - Users
-      summary: '[OWNER] Get guests of my hotel'
+      summary: Owner get guests
       parameters:
         - name: hotelId
           in: path
@@ -144,16 +136,10 @@ paths:
     get:
       tags:
         - Hotels
-      summary: '[ADMIN] Get all hotels (including unpublished)'
+      summary: '[ADMIN] Get all hotels'
       responses:
         '200':
           $ref: '#/components/responses/200'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: ../components/schemas/Hotel.yaml
   /hotels/owner:
     get:
       tags:
@@ -162,17 +148,11 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/200'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: ../components/schemas/Hotel.yaml
   /hotels/{id}:
     patch:
       tags:
         - Hotels
-      summary: '[ADMIN | OWNER] Update hotel'
+      summary: Update hotel
       parameters:
         - name: id
           in: path
@@ -190,7 +170,7 @@ paths:
     delete:
       tags:
         - Hotels
-      summary: '[ADMIN] Delete hotel'
+      summary: Delete hotel
       parameters:
         - name: id
           in: path
@@ -204,7 +184,7 @@ paths:
     patch:
       tags:
         - Hotels
-      summary: '[ADMIN] Assign owner to hotel'
+      summary: Assign owner
       parameters:
         - name: id
           in: path
@@ -222,7 +202,6 @@ paths:
               properties:
                 ownerId:
                   type: integer
-                  description: User ID of the new owner
       responses:
         '200':
           $ref: '#/components/responses/200'
@@ -232,28 +211,15 @@ paths:
     get:
       tags:
         - Rooms
-      summary: Public – Search published rooms
+      summary: Search rooms
       parameters:
         - name: city
           in: query
           schema:
             type: string
-          description: Filter by city
-        - name: capacity
-          in: query
-          schema:
-            type: integer
-            minimum: 1
-          description: Minimum number of guests
-        - name: maxPrice
-          in: query
-          schema:
-            type: number
-          description: Maximum price per night
       responses:
         '200':
           $ref: '#/components/responses/200'
-          description: List of available rooms
           content:
             application/json:
               schema:
@@ -263,21 +229,11 @@ paths:
                   properties:
                     id:
                       type: integer
-                    hotelName:
-                      type: string
-                    roomNumber:
-                      type: integer
-                    capacity:
-                      type: integer
-                    pricePerNight:
-                      type: number
-                    isPublished:
-                      type: boolean
   /rooms/hotels/{hotelId}/rooms:
     post:
       tags:
         - Rooms
-      summary: '[ADMIN | OWNER] Add new room to hotel'
+      summary: Add new room
       parameters:
         - name: hotelId
           in: path
@@ -297,7 +253,6 @@ paths:
     get:
       tags:
         - Rooms
-      summary: Get room details (only if published)
       parameters:
         - name: id
           in: path
@@ -307,16 +262,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/200'
-          content:
-            application/json:
-              schema:
-                $ref: ../components/schemas/Room.yaml
-        '404':
-          $ref: '#/components/responses/404'
     patch:
       tags:
         - Rooms
-      summary: '[ADMIN | OWNER] Update room'
       parameters:
         - name: id
           in: path
@@ -334,7 +282,6 @@ paths:
     delete:
       tags:
         - Rooms
-      summary: '[ADMIN | OWNER] Delete room (blocked if has future bookings)'
       parameters:
         - name: id
           in: path
@@ -343,10 +290,7 @@ paths:
             type: integer
       responses:
         '204':
-          description: Room deleted
-        '400':
-          description: Cannot delete – has future bookings
-          $ref: '#/components/responses/400'
+          description: Deleted
 components:
   securitySchemes:
     bearerAuth:

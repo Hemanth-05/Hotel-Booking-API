@@ -1,56 +1,46 @@
-paths:
-  me:
-    get:
-      tags: [Users]
-      summary: Get current user profile
-      responses:
-        '200':
-          $ref: '../components/responses/200.yaml'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  user:
-                    $ref: '../components/schemas/User.yaml'
-    patch:
-      tags: [Users]
-      summary: Update profile
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name: { type: ['string', 'null'] }
-                password: { type: string, minLength: 8 }
-      responses:
-        '200':
-          $ref: '../components/responses/200.yaml'
-    delete:
-      tags: [Users]
-      summary: Delete account
-      responses:
-        '204':
-          description: No Content
+me:
+  get:
+    tags: [Users]
+    summary: Get profile
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
 
-  adminGetAll:
-    get:
-      tags: [Users]
-      summary: "[ADMIN] Get all users"
-      responses:
-        '200':
-          $ref: '../components/responses/200.yaml'
+  patch:
+    tags: [Users]
+    summary: Update profile
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name: { type: ['string', 'null'] }
+              password: { type: string }
+    responses:
+      '200': { $ref: '../components/responses/200.yaml' }
 
-  ownerGetGuests:
-    get:
-      tags: [Users]
-      summary: "[OWNER] Get guests of my hotel"
-      parameters:
-        - name: hotelId
-          in: path
-          required: true
-          schema: { type: integer }
-      responses:
-        '200':
-          $ref: '../components/responses/200.yaml'
+  delete:
+    tags: [Users]
+    summary: Delete account
+    responses:
+      '204': { description: No content }
+
+adminGetAll:
+  get:
+    tags: [Users]
+    summary: Admin get all users
+    responses:
+      '200': { $ref: '../components/responses/200.yaml' }
+
+ownerGetGuests:
+  get:
+    tags: [Users]
+    summary: Owner get guests
+    parameters:
+      - name: hotelId
+        in: path
+        required: true
+        schema: { type: integer }
+    responses:
+      '200': { $ref: '../components/responses/200.yaml' }

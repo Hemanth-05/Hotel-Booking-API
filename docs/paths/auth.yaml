@@ -1,41 +1,40 @@
-paths:
-  signup:
-    post:
-      tags: [Auth]
-      summary: Register new user
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [email, password]
-              properties:
-                name: { type: ['string', 'null'] }
-                email: { type: string, format: email }
-                password: { type: string, minLength: 8 }
-      responses:
-        '201':
-          $ref: '../components/responses/201.yaml'
-        '409':
-          $ref: '../components/responses/400.yaml'
+signup:
+  post:
+    tags: [Auth]
+    summary: Register new user
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [email, password]
+            properties:
+              name: { type: ['string', 'null'] }
+              email: { type: string, format: email }
+              password: { type: string, minLength: 8 }
+    responses:
+      '201':
+        $ref: '../components/responses/201.yaml'
+      '409':
+        $ref: '../components/responses/400.yaml'
 
-  login:
-    post:
-      tags: [Auth]
-      summary: Login
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [email, password]
-              properties:
-                email: { type: string }
-                password: { type: string }
-      responses:
-        '200':
-          $ref: '../components/responses/200.yaml'
-        '401':
-          $ref: '../components/responses/401.yaml'
+login:
+  post:
+    tags: [Auth]
+    summary: Login
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [email, password]
+            properties:
+              email: { type: string }
+              password: { type: string }
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+      '401':
+        $ref: '../components/responses/401.yaml'

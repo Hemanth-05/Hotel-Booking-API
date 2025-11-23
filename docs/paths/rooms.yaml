@@ -1,105 +1,73 @@
-paths:
-  search:
-    get:
-      tags: [Rooms]
-      summary: Public – Search published rooms
-      parameters:
-        - name: city
-          in: query
-          schema: { type: string }
-          description: Filter by city
-        - name: capacity
-          in: query
-          schema: { type: integer, minimum: 1 }
-          description: Minimum number of guests
-        - name: maxPrice
-          in: query
-          schema: { type: number }
-          description: Maximum price per night
-      responses:
-        '200':
-          $ref: '../components/responses/200.yaml'
-          description: List of available rooms
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id: { type: integer }
-                    hotelName: { type: string }
-                    roomNumber: { type: integer }
-                    capacity: { type: integer }
-                    pricePerNight: { type: number }
-                    isPublished: { type: boolean }
+search:
+  get:
+    tags: [Rooms]
+    summary: Search rooms
+    parameters:
+      - name: city
+        in: query
+        schema: { type: string }
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id: { type: integer }
 
-  create:
-    post:
-      tags: [Rooms]
-      summary: "[ADMIN | OWNER] Add new room to hotel"
-      parameters:
-        - name: hotelId
-          in: path
-          required: true
-          schema: { type: integer }
-      requestBody:
+create:
+  post:
+    tags: [Rooms]
+    summary: Add new room
+    parameters:
+      - name: hotelId
+        in: path
         required: true
-        content:
-          application/json:
-            schema:
-              $ref: '../components/schemas/Room.yaml'
-      responses:
-        '201':
-          $ref: '../components/responses/201.yaml'
+        schema: { type: integer }
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Room.yaml'
+    responses:
+      '201': { $ref: '../components/responses/201.yaml' }
 
-  byId:
-    get:
-      tags: [Rooms]
-      summary: Get room details (only if published)
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema: { type: integer }
-      responses:
-        '200':
-          $ref: '../components/responses/200.yaml'
-          content:
-            application/json:
-              schema:
-                $ref: '../components/schemas/Room.yaml'
-        '404':
-          $ref: '../components/responses/404.yaml'
-
-    patch:
-      tags: [Rooms]
-      summary: "[ADMIN | OWNER] Update room"
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema: { type: integer }
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '../components/schemas/Room.yaml'
-      responses:
-        '200':
-          $ref: '../components/responses/200.yaml'
-
-    delete:
-      tags: [Rooms]
-      summary: "[ADMIN | OWNER] Delete room (blocked if has future bookings)"
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema: { type: integer }
-      responses:
-        '204':
-          description: Room deleted
-        '400':
-          description: Cannot delete – has future bookings
-          $ref: '../components/responses/400.yaml'
+byId:
+  get:
+    tags: [Rooms]
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer }
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+  patch:
+    tags: [Rooms]
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer }
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Room.yaml'
+    responses:
+      '200': { $ref: '../components/responses/200.yaml' }
+  delete:
+    tags: [Rooms]
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer }
+    responses:
+      '204':
+        description: Deleted
