@@ -1,101 +1,57 @@
-/hotels/{hotelId}/rooms:
+/api/hotels/{hotelId}/rooms:
   post:
-    summary: "Create room for hotel"
+    tags: [Rooms]
+    summary: Create room in a hotel (Admin/Owner)
     security:
       - bearerAuth: []
     parameters:
       - name: hotelId
         in: path
         required: true
-        schema:
-          type: integer
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '../components/schemas/room.yaml#/Room'
     responses:
-      '201':
-        $ref: '../components/responses/201.yaml#/Created'
-      '400':
-        $ref: '../components/responses/400.yaml#/BadRequest'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
+      201:
+        description: Room created
 
-/:
+/api/rooms:
   get:
-    summary: "List all rooms with filters"
-    parameters:
-      - name: capacity
-        in: query
-        schema:
-          type: integer
-      - name: priceMin
-        in: query
-        schema:
-          type: number
-      - name: priceMax
-        in: query
-        schema:
-          type: number
+    tags: [Rooms]
+    summary: Public room list
     responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
+      200:
+        description: Rooms list
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../components/schemas/Room.yaml#/Room"
 
-/{id}:
+/api/rooms/{id}:
   get:
-    summary: "Get room by id"
+    tags: [Rooms]
+    summary: Get room by ID
     parameters:
       - name: id
         in: path
         required: true
-        schema:
-          type: integer
     responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-      '404':
-        $ref: '../components/responses/404.yaml#/NotFound'
+      200:
+        description: Room details
+
   patch:
-    summary: "Update room by id"
+    tags: [Rooms]
+    summary: Update room (Admin/Owner)
     security:
       - bearerAuth: []
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '../components/schemas/room.yaml#/Room'
     responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-      '400':
-        $ref: '../components/responses/400.yaml#/BadRequest'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
-      '404':
-        $ref: '../components/responses/404.yaml#/NotFound'
+      200:
+        description: Room updated
+
   delete:
-    summary: "Delete room by id"
+    tags: [Rooms]
+    summary: Delete room (Admin/Owner)
     security:
       - bearerAuth: []
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
     responses:
-      '204':
-        $ref: '../components/responses/204.yaml#/NoContent'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
-      '404':
-        $ref: '../components/responses/404.yaml#/NotFound'
+      204:
+        description: Room deleted

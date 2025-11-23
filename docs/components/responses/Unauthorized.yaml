@@ -1,0 +1,6 @@
+Unauthorized:
+  description: Missing or invalid token
+  content:
+    application/json:
+      schema:
+        $ref: "./ErrorResponse.yaml#/ErrorResponse"

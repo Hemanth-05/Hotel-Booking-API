@@ -3,17 +3,14 @@ Hotel:
   properties:
     id:
       type: integer
-      example: 1
     name:
       type: string
-      example: "Grand Hotel"
+    city:
+      type: string
     address:
       type: string
-      example: "123 Main St"
+    rating:
+      type: number
     ownerId:
       type: integer
       nullable: true
-  required:
-    - id
-    - name
-    - address

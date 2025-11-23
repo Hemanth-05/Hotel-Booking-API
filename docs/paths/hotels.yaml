@@ -1,116 +1,60 @@
-/:
+/api/hotels:
   post:
-    summary: "Create a hotel (Admin only)"
+    tags: [Hotels]
+    summary: Create hotel (Admin)
     security:
       - bearerAuth: []
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '../components/schemas/hotel.yaml#/Hotel'
     responses:
-      '201':
-        $ref: '../components/responses/201.yaml#/Created'
-      '400':
-        $ref: '../components/responses/400.yaml#/BadRequest'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
+      201:
+        description: Hotel created
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/Hotel.yaml#/Hotel"
 
-/admin:
+/api/admin/hotels:
   get:
-    summary: "Get all hotels (Admin only)"
+    tags: [Hotels]
+    summary: Admin get all hotels
     security:
       - bearerAuth: []
     responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
+      200:
+        description: List of hotels
 
-/owner:
+/api/owner/hotels:
   get:
-    summary: "Get hotels owned by user (Owner only)"
+    tags: [Hotels]
+    summary: Owner get hotels they own
     security:
       - bearerAuth: []
     responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
+      200:
+        description: Owner hotels
 
-/{id}:
+/api/hotels/{id}:
   patch:
-    summary: "Update hotel info"
+    tags: [Hotels]
+    summary: Update hotel (Admin/Owner)
     security:
       - bearerAuth: []
     parameters:
       - name: id
         in: path
         required: true
-        schema:
-          type: integer
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '../components/schemas/hotel.yaml#/Hotel'
     responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-      '400':
-        $ref: '../components/responses/400.yaml#/BadRequest'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
-      '404':
-        $ref: '../components/responses/404.yaml#/NotFound'
+      200:
+        description: Hotel updated
+
   delete:
-    summary: "Delete hotel (Admin only)"
+    tags: [Hotels]
+    summary: Delete hotel (Admin)
     security:
       - bearerAuth: []
     parameters:
       - name: id
         in: path
         required: true
-        schema:
-          type: integer
     responses:
-      '204':
-        $ref: '../components/responses/204.yaml#/NoContent'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
-      '404':
-        $ref: '../components/responses/404.yaml#/NotFound'
-
-/{id}/owner:
-  patch:
-    summary: "Assign owner to hotel (Admin only)"
-    security:
-      - bearerAuth: []
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              ownerId:
-                type: integer
-            required:
-              - ownerId
-    responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-      '400':
-        $ref: '../components/responses/400.yaml#/BadRequest'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
-      '404':
-        $ref: '../components/responses/404.yaml#/NotFound'
+      204:
+        description: Hotel deleted

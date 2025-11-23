@@ -1,0 +1,7 @@
+LoginResponse:
+  type: object
+  properties:
+    accessToken:
+      type: string
+    user:
+      $ref: "../schemas/User.yaml#/User"

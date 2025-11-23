@@ -1,65 +1,42 @@
-/me:
+/api/admin/users:
   get:
-    summary: "Get current user profile"
+    tags: [Users]
+    summary: Admin get all users
     security:
       - bearerAuth: []
     responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-  patch:
-    summary: "Update current user profile"
-    security:
-      - bearerAuth: []
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-              password:
-                type: string
-    responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-      '400':
-        $ref: '../components/responses/400.yaml#/BadRequest'
-  delete:
-    summary: "Delete current user"
-    security:
-      - bearerAuth: []
-    responses:
-      '204':
-        $ref: '../components/responses/204.yaml#/NoContent'
+      200:
+        description: User list
 
-/admin/users:
+/api/owner/hotels/{hotelId}/guests:
   get:
-    summary: "Get all users (Admin only)"
-    security:
-      - bearerAuth: []
-    responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
-
-/owner/hotels/{hotelId}/guests:
-  get:
-    summary: "Get all guests for a hotel (Owner only)"
+    tags: [Users]
+    summary: Owner get guests for hotel
     security:
       - bearerAuth: []
     parameters:
       - name: hotelId
         in: path
         required: true
-        schema:
-          type: integer
     responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-      '403':
-        $ref: '../components/responses/403.yaml#/Forbidden'
-      '404':
-        $ref: '../components/responses/404.yaml#/NotFound'
+      200:
+        description: Guests list
+
+/api/users/me:
+  patch:
+    tags: [Users]
+    summary: Update own profile
+    security:
+      - bearerAuth: []
+    responses:
+      200:
+        description: Profile updated
+
+  delete:
+    tags: [Users]
+    summary: Delete own account
+    security:
+      - bearerAuth: []
+    responses:
+      204:
+        description: Account deleted

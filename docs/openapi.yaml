@@ -1,20 +1,101 @@
 openapi: 3.1.0
+
 info:
   title: Hotel Booking API
   version: 1.0.0
+  description: API for hotel, room, booking, and user management
+
 servers:
-  - url: http://localhost:3000/api-docs
+  - url: http://localhost:3000
+    description: Local server
+
+tags:
+  - name: Auth
+  - name: Hotels
+  - name: Rooms
+  - name: Bookings
+  - name: Users
+
 paths:
-  /dummy: {} # dummy keys
-  x-redoc-refs:
-    - $ref: './paths/auth.yaml'
-    - $ref: './paths/hotels.yaml'
-    - $ref: './paths/rooms.yaml'
-    - $ref: './paths/users.yaml'
+  /api/auth/signup:
+    $ref: docs/paths/auth.signup.yaml
+
+  /api/auth/login:
+    $ref: docs/paths/auth.login.yaml
+
+  /api/hotels:
+    $ref: docs/paths/hotels.main.yaml
+
+  /api/admin/hotels:
+    $ref: docs/paths/hotels.admin.yaml
+
+  /api/owner/hotels:
+    $ref: docs/paths/hotels.owner.yaml
+
+  /api/hotels/{id}:
+    $ref: docs/paths/hotels.id.yaml
+
+  /api/hotels/{hotelId}/rooms:
+    $ref: docs/paths/rooms.byHotel.yaml
+
+  /api/rooms:
+    $ref: docs/paths/rooms.main.yaml
+
+  /api/rooms/{id}:
+    $ref: docs/paths/rooms.id.yaml
+
+  /api/bookings:
+    $ref: docs/paths/bookings.main.yaml
+
+  /api/bookings/{id}:
+    $ref: docs/paths/bookings.id.yaml
+
+  /api/owner/bookings:
+    $ref: docs/paths/bookings.owner.yaml
+
+  /api/admin/bookings:
+    $ref: docs/paths/bookings.admin.yaml
+
+  /api/admin/users:
+    $ref: docs/paths/users.admin.yaml
+
+  /api/owner/hotels/{hotelId}/guests:
+    $ref: docs/paths/users.guests.yaml
+
+  /api/users/me:
+    $ref: docs/paths/users.me.yaml
+
 
 components:
   schemas:
-    $ref: './components/schemas/user.yaml'
+    Hotel:
+      $ref: docs/components/schemas/Hotel.yaml
+
+    Room:
+      $ref: docs/components/schemas/Room.yaml
+
+    Booking:
+      $ref: docs/components/schemas/Booking.yaml
+
+    User:
+      $ref: docs/components/schemas/User.yaml
+
+    LoginResponse:
+      $ref: docs/components/schemas/Auth.yaml
+
+  responses:
+    ErrorResponse:
+      $ref: docs/components/responses/ErrorResponse.yaml
+
+    Unauthorized:
+      $ref: docs/components/responses/Unauthorized.yaml
+
+    Forbidden:
+      $ref: docs/components/responses/Forbidden.yaml
+
+    NotFound:
+      $ref: docs/components/responses/NotFound.yaml
+
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,0 +1,6 @@
+Forbidden:
+  description: Access denied
+  content:
+    application/json:
+      schema:
+        $ref: "./ErrorResponse.yaml#/ErrorResponse"

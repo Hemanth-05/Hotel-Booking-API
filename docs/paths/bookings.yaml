@@ -1,0 +1,65 @@
+/api/bookings:
+  post:
+    tags: [Bookings]
+    summary: Create booking (Guest)
+    security:
+      - bearerAuth: []
+    responses:
+      201:
+        description: Booking created
+
+  get:
+    tags: [Bookings]
+    summary: Get user’s own bookings
+    security:
+      - bearerAuth: []
+    responses:
+      200:
+        description: User bookings
+
+/api/owner/bookings:
+  get:
+    tags: [Bookings]
+    summary: Owner get bookings for owned hotels
+    security:
+      - bearerAuth: []
+    responses:
+      200:
+        description: Owner bookings
+
+/api/admin/bookings:
+  get:
+    tags: [Bookings]
+    summary: Admin get all bookings
+    security:
+      - bearerAuth: []
+    responses:
+      200:
+        description: All bookings
+
+/api/bookings/{id}:
+  patch:
+    tags: [Bookings]
+    summary: Update booking (Guest)
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+    responses:
+      200:
+        description: Booking updated
+
+  delete:
+    tags: [Bookings]
+    summary: Delete booking (Admin)
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+    responses:
+      204:
+        description: Booking deleted

@@ -1,39 +1,27 @@
-/signup:
+/api/auth/signup:
   post:
-    summary: "Register a new user"
+    tags: [Auth]
+    summary: Register new user (Guest)
     requestBody:
       required: true
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/user.yaml#/User'
+            $ref: "../components/schemas/User.yaml#/User"
     responses:
-      '201':
-        $ref: '../components/responses/201.yaml#/Created'
-      '400':
-        $ref: '../components/responses/400.yaml#/BadRequest'
+      201:
+        description: User created
 
-/login:
+/api/auth/login:
   post:
-    summary: "Login user"
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              email:
-                type: string
-              password:
-                type: string
-            required:
-              - email
-              - password
+    tags: [Auth]
+    summary: Login and receive JWT
     responses:
-      '200':
-        $ref: '../components/responses/200.yaml#/Success'
-      '400':
-        $ref: '../components/responses/400.yaml#/BadRequest'
-      '401':
-        $ref: '../components/responses/401.yaml#/Unauthorized'
+      200:
+        description: Login successful
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/Auth.yaml#/LoginResponse"
+      401:
+        $ref: "../components/responses/Unauthorized.yaml#/Unauthorized"

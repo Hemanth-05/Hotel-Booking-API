@@ -3,21 +3,15 @@ Room:
   properties:
     id:
       type: integer
-      example: 101
     roomNumber:
       type: string
-      example: "101A"
     capacity:
       type: integer
-      example: 2
     pricePerNight:
       type: number
-      example: 120.5
+    amenities:
+      type: array
+      items:
+        type: string
     hotel:
-      $ref: '../schemas/hotel.yaml#/Hotel'
-  required:
-    - id
-    - roomNumber
-    - capacity
-    - pricePerNight
-    - hotel
+      $ref: "../schemas/Hotel.yaml#/Hotel"
