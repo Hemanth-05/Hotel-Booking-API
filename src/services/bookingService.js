@@ -15,22 +15,58 @@ export async function createBookingService({ roomId, startDate, endDate, guests,
   const room = await prisma.room.findUnique({ where: { id: roomId } });
   if (!room) throw new Error("Room not found");
 
-  const nights =
-    (new Date(endDate).getTime() - new Date(startDate).getTime()) /
-    (1000 * 60 * 60 * 24);
+  if (!startDate || !endDate) {
+    const err = new Error("startDate and endDate are required");
+    err.status = 400;
+    throw err;
+  }
 
-  if (nights < 1) throw new Error("Invalid booking dates");
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    const err = new Error("Invalid booking dates");
+    err.status = 400;
+    throw err;
+  }
+
+  const nights = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
+  if (nights < 1) {
+    const err = new Error("Invalid booking dates");
+    err.status = 400;
+    throw err;
+  }
+
+  if (guests > room.capacity) {
+    const err = new Error(`Room capacity is ${room.capacity}`);
+    err.status = 400;
+    throw err;
+  }
+
+  const overlapping = await prisma.booking.findFirst({
+    where: {
+      roomId,
+      status: "CONFIRMED",
+      startDate: { lt: end },
+      endDate: { gt: start },
+    },
+  });
+
+  if (overlapping) {
+    const err = new Error("Room is already booked for these dates");
+    err.status = 400;
+    throw err;
+  }
 
   const total = nights * Number(room.pricePerNight);
 
   return createBookingInDB({
     roomId,
-    startDate: new Date(startDate),
-    endDate: new Date(endDate),
+    startDate: start,
+    endDate: end,
     guests,
     guestId: userId,
     total,
-    status: "BOOKED"
+    status: "CONFIRMED"
   });
 }
 
