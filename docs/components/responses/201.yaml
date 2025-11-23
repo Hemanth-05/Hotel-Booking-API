@@ -1,1 +1,11 @@
-description: Created
+Created:
+  description: "Resource created successfully"
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+          id:
+            type: integer

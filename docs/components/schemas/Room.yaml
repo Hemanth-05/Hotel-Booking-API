@@ -1,21 +1,23 @@
-type: object
-required: [hotelId, roomNumber, capacity, pricePerNight]
-properties:
-  id:
-    type: integer
-    readOnly: true
-  hotelId:
-    type: integer
-  roomNumber:
-    type: integer
-    minimum: 1
-  capacity:
-    type: integer
-    minimum: 1
-  pricePerNight:
-    type: number
-    format: float
-    minimum: 0
-  isPublished:
-    type: boolean
-    default: false
+Room:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 101
+    roomNumber:
+      type: string
+      example: "101A"
+    capacity:
+      type: integer
+      example: 2
+    pricePerNight:
+      type: number
+      example: 120.5
+    hotel:
+      $ref: '../schemas/hotel.yaml#/Hotel'
+  required:
+    - id
+    - roomNumber
+    - capacity
+    - pricePerNight
+    - hotel

@@ -1,40 +1,39 @@
-signup:
+/signup:
   post:
-    tags: [Auth]
-    summary: Register new user
+    summary: "Register a new user"
     requestBody:
       required: true
       content:
         application/json:
           schema:
-            type: object
-            required: [email, password]
-            properties:
-              name: { type: ['string', 'null'] }
-              email: { type: string, format: email }
-              password: { type: string, minLength: 8 }
+            $ref: '../components/schemas/user.yaml#/User'
     responses:
       '201':
-        $ref: '../components/responses/201.yaml'
-      '409':
-        $ref: '../components/responses/400.yaml'
+        $ref: '../components/responses/201.yaml#/Created'
+      '400':
+        $ref: '../components/responses/400.yaml#/BadRequest'
 
-login:
+/login:
   post:
-    tags: [Auth]
-    summary: Login
+    summary: "Login user"
     requestBody:
       required: true
       content:
         application/json:
           schema:
             type: object
-            required: [email, password]
             properties:
-              email: { type: string }
-              password: { type: string }
+              email:
+                type: string
+              password:
+                type: string
+            required:
+              - email
+              - password
     responses:
       '200':
-        $ref: '../components/responses/200.yaml'
+        $ref: '../components/responses/200.yaml#/Success'
+      '400':
+        $ref: '../components/responses/400.yaml#/BadRequest'
       '401':
-        $ref: '../components/responses/401.yaml'
+        $ref: '../components/responses/401.yaml#/Unauthorized'

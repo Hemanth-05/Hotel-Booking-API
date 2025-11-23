@@ -1,73 +1,101 @@
-search:
-  get:
-    tags: [Rooms]
-    summary: Search rooms
-    parameters:
-      - name: city
-        in: query
-        schema: { type: string }
-    responses:
-      '200':
-        $ref: '../components/responses/200.yaml'
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: object
-                properties:
-                  id: { type: integer }
-
-create:
+/hotels/{hotelId}/rooms:
   post:
-    tags: [Rooms]
-    summary: Add new room
+    summary: "Create room for hotel"
+    security:
+      - bearerAuth: []
     parameters:
       - name: hotelId
         in: path
         required: true
-        schema: { type: integer }
+        schema:
+          type: integer
     requestBody:
       required: true
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/Room.yaml'
+            $ref: '../components/schemas/room.yaml#/Room'
     responses:
-      '201': { $ref: '../components/responses/201.yaml' }
+      '201':
+        $ref: '../components/responses/201.yaml#/Created'
+      '400':
+        $ref: '../components/responses/400.yaml#/BadRequest'
+      '403':
+        $ref: '../components/responses/403.yaml#/Forbidden'
 
-byId:
+/:
   get:
-    tags: [Rooms]
+    summary: "List all rooms with filters"
     parameters:
-      - name: id
-        in: path
-        required: true
-        schema: { type: integer }
+      - name: capacity
+        in: query
+        schema:
+          type: integer
+      - name: priceMin
+        in: query
+        schema:
+          type: number
+      - name: priceMax
+        in: query
+        schema:
+          type: number
     responses:
       '200':
-        $ref: '../components/responses/200.yaml'
-  patch:
-    tags: [Rooms]
+        $ref: '../components/responses/200.yaml#/Success'
+
+/{id}:
+  get:
+    summary: "Get room by id"
     parameters:
       - name: id
         in: path
         required: true
-        schema: { type: integer }
+        schema:
+          type: integer
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml#/Success'
+      '404':
+        $ref: '../components/responses/404.yaml#/NotFound'
+  patch:
+    summary: "Update room by id"
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
     requestBody:
+      required: true
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/Room.yaml'
+            $ref: '../components/schemas/room.yaml#/Room'
     responses:
-      '200': { $ref: '../components/responses/200.yaml' }
+      '200':
+        $ref: '../components/responses/200.yaml#/Success'
+      '400':
+        $ref: '../components/responses/400.yaml#/BadRequest'
+      '403':
+        $ref: '../components/responses/403.yaml#/Forbidden'
+      '404':
+        $ref: '../components/responses/404.yaml#/NotFound'
   delete:
-    tags: [Rooms]
+    summary: "Delete room by id"
+    security:
+      - bearerAuth: []
     parameters:
       - name: id
         in: path
         required: true
-        schema: { type: integer }
+        schema:
+          type: integer
     responses:
       '204':
-        description: Deleted
+        $ref: '../components/responses/204.yaml#/NoContent'
+      '403':
+        $ref: '../components/responses/403.yaml#/Forbidden'
+      '404':
+        $ref: '../components/responses/404.yaml#/NotFound'

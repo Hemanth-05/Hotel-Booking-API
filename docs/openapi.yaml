@@ -1,98 +1,22 @@
 openapi: 3.1.0
 info:
   title: Hotel Booking API
-  description: Complete hotel booking system with role-based access (Admin / Owner / Guest)
   version: 1.0.0
-  contact:
-    name: API Support
-    email: support@hotelbooking.com
-
 servers:
   - url: http://localhost:3000/api-docs
-    description: Swagger UI – Open this file directly for live docs
-  - url: http://localhost:3000/api
-    description: Local development server
-  - url: https://api.hotelbooking.com/api
-    description: Production server
-
-tags:
-  - name: Auth
-    description: Registration and authentication endpoints
-  - name: Users
-    description: User profile and management
-  - name: Admin
-    description: Admin-only endpoints
-  - name: Owner
-    description: Hotel owner endpoints
-  - name: Hotels
-    description: Hotel management
-  - name: Rooms
-    description: Room management and availability search
+paths:
+  /dummy: {} # dummy keys
+  x-redoc-refs:
+    - $ref: './paths/auth.yaml'
+    - $ref: './paths/hotels.yaml'
+    - $ref: './paths/rooms.yaml'
+    - $ref: './paths/users.yaml'
 
 components:
+  schemas:
+    $ref: './components/schemas/user.yaml'
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: JWT token obtained after login. Example: Bearer <token>
-
-  schemas:
-    User:
-      $ref: './components/schemas/User.yaml'
-    Hotel:
-      $ref: './components/schemas/Hotel.yaml'
-    Room:
-      $ref: './components/schemas/Room.yaml'
-    Error:
-      $ref: './components/schemas/Error.yaml'
-
-  responses:
-    OK:
-      $ref: './components/responses/200.yaml'
-    Created:
-      $ref: './components/responses/201.yaml'
-    BadRequest:
-      $ref: './components/responses/400.yaml'
-    Unauthorized:
-      $ref: './components/responses/401.yaml'
-    Forbidden:
-      $ref: './components/responses/403.yaml'
-    NotFound:
-      $ref: './components/responses/404.yaml'
-    Conflict:
-      $ref: './components/responses/409.yaml'
-
-security:
-  - bearerAuth: []
-
-paths:
-  /auth/signup:
-    $ref: './paths/auth.yaml#/signup'
-  /auth/login:
-    $ref: './paths/auth.yaml#/login'
-
-  /users/me:
-    $ref: './paths/users.yaml#/me'
-  /admin/users:
-    $ref: './paths/users.yaml#/adminGetAll'
-  /owner/hotels/{hotelId}/guests:
-    $ref: './paths/users.yaml#/ownerGetGuests'
-
-  /hotels:
-    $ref: './paths/hotels.yaml#/createHotel'
-  /admin/hotels:
-    $ref: './paths/hotels.yaml#/adminGetAllHotels'
-  /owner/hotels:
-    $ref: './paths/hotels.yaml#/ownerGetMyHotels'
-  /hotels/{id}:
-    $ref: './paths/hotels.yaml#/hotelById'
-  /hotels/{id}/owner:
-    $ref: './paths/hotels.yaml#/assignOwner'
-
-  /rooms/search:
-    $ref: './paths/rooms.yaml#/searchRooms'
-  /hotels/{hotelId}/rooms:
-    $ref: './paths/rooms.yaml#/createRoom'
-  /rooms/{id}:
-    $ref: './paths/rooms.yaml#/roomById'

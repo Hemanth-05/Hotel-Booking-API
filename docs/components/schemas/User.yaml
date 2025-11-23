@@ -1,15 +1,21 @@
-type: object
-required: [id, email, role]
-properties:
-  id:
-    type: integer
-    readOnly: true
-  name:
-    type: ['string', 'null']
-  email:
-    type: string
-    format: email
-  role:
-    type: string
-    enum: [ADMIN, OWNER, GUEST]
-    default: GUEST
+User:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    name:
+      type: string
+      example: "John Doe"
+    email:
+      type: string
+      example: "john@example.com"
+    role:
+      type: string
+      enum: [ADMIN, OWNER, USER]
+      example: "USER"
+  required:
+    - id
+    - name
+    - email
+    - role

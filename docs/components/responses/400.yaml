@@ -1,5 +1,14 @@
-description: Bad Request
-content:
-  application/json:
-    schema:
-      $ref: '../schemas/Error.yaml'
+BadRequest:
+  description: "Bad request"
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Invalid request data"
+          errors:
+            type: array
+            items:
+              type: string

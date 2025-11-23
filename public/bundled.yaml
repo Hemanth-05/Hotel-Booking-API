@@ -1,0 +1,44 @@
+openapi: 3.1.0
+info:
+  title: Hotel Booking API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api-docs
+paths:
+  /dummy: {}
+  x-redoc-refs:
+    - $ref: ./paths/auth.yaml
+    - $ref: ./paths/hotels.yaml
+    - $ref: ./paths/rooms.yaml
+    - $ref: ./paths/users.yaml
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john@example.com
+        role:
+          type: string
+          enum:
+            - ADMIN
+            - OWNER
+            - USER
+          example: USER
+      required:
+        - id
+        - name
+        - email
+        - role
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

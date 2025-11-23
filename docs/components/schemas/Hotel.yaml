@@ -1,24 +1,19 @@
-type: object
-required: [name, city, address]
-properties:
-  id:
-    type: integer
-    readOnly: true
-  name:
-    type: string
-    minLength: 3
-  city:
-    type: string
-  address:
-    type: string
-  rating:
-    type: number
-    minimum: 0
-    maximum: 5
-    nullable: true
-  isPublished:
-    type: boolean 
-    default: false
-  ownerId:
-    type: integer
-    nullable: true
+Hotel:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    name:
+      type: string
+      example: "Grand Hotel"
+    address:
+      type: string
+      example: "123 Main St"
+    ownerId:
+      type: integer
+      nullable: true
+  required:
+    - id
+    - name
+    - address

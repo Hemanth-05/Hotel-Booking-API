@@ -1,5 +1,5 @@
-Unauthorized:
-  description: "Unauthorized – invalid token or not logged in"
+Forbidden:
+  description: "Forbidden – user does not have permission"
   content:
     application/json:
       schema:
@@ -7,4 +7,4 @@ Unauthorized:
         properties:
           message:
             type: string
-            example: "Authentication failed"
+            example: "Access denied"
