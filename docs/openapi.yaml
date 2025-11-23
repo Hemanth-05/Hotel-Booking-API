@@ -25,46 +25,56 @@ components:
       $ref: './components/schemas/Error.yaml'
 
   responses:
-    OK: { $ref: './components/responses/200.yaml' }
-    Created: { $ref: './components/responses/201.yaml' }
-    BadRequest: { $ref: './components/responses/400.yaml' }
-    Unauthorized: { $ref: './components/responses/401.yaml' }
-    NotFound: { $ref: './components/responses/404.yaml' }
+    OK:
+      $ref: './components/responses/200.yaml'
+    Created:
+      $ref: './components/responses/201.yaml'
+    BadRequest:
+      $ref: './components/responses/400.yaml'
+    Unauthorized:
+      $ref: './components/responses/401.yaml'
+    NotFound:
+      $ref: './components/responses/404.yaml'
 
 security:
   - bearerAuth: []
 
 paths:
-  # AUTH
   /auth/signup:
-    $ref: './paths/auth.yaml#/signup'
+    $ref: './components/paths/auth.yaml#/paths/signup'
+
   /auth/login:
-    $ref: './paths/auth.yaml#/login'
+    $ref: './components/paths/auth.yaml#/paths/login'
 
-  # USERS
   /users/me:
-    $ref: './paths/users.yaml#/me'
+    $ref: './components/paths/users.yaml#/paths/me'
+
   /users/admin/users:
-    $ref: './paths/users.yaml#/adminGetAll'
+    $ref: './components/paths/users.yaml#/paths/adminGetAll'
+
   /users/owner/hotels/{hotelId}/guests:
-    $ref: './paths/users.yaml#/ownerGetGuests'
+    $ref: './components/paths/users.yaml#/paths/ownerGetGuests'
 
-  # HOTELS
   /hotels:
-    $ref: './paths/hotels.yaml#/create'
-  /hotels/admin:
-    $ref: './paths/hotels.yaml#/adminAll'
-  /hotels/owner:
-    $ref: './paths/hotels.yaml#/ownerAll'
-  /hotels/{id}:
-    $ref: './paths/hotels.yaml#/byId'
-  /hotels/{id}/owner:
-    $ref: './paths/hotels.yaml#/assignOwner'
+    $ref: './components/paths/hotels.yaml#/paths/create'
 
-  # ROOMS
+  /hotels/admin:
+    $ref: './components/paths/hotels.yaml#/paths/adminAll'
+
+  /hotels/owner:
+    $ref: './components/paths/hotels.yaml#/paths/ownerAll'
+
+  /hotels/{id}:
+    $ref: './components/paths/hotels.yaml#/paths/byId'
+
+  /hotels/{id}/owner:
+    $ref: './components/paths/hotels.yaml#/paths/assignOwner'
+
   /rooms:
-    $ref: './paths/rooms.yaml#/search'
+    $ref: './components/paths/rooms.yaml#/paths/search'
+
   /rooms/hotels/{hotelId}/rooms:
-    $ref: './paths/rooms.yaml#/create'
+    $ref: './components/paths/rooms.yaml#/paths/create'
+
   /rooms/{id}:
-    $ref: './paths/rooms.yaml#/byId'
+    $ref: './components/paths/rooms.yaml#/paths/byId'
