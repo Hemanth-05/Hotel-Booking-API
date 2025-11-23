@@ -5,6 +5,10 @@ import userRoutes from './routes/userRoutes.js';
 import hotelRoutes from './routes/hotelRoutes.js';
 import roomRoutes from './routes/roomRoutes.js';
 
+//swagger api 
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -19,6 +23,15 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/rooms', roomRoutes);
+
+//swager ui 
+try {
+  const swaggerDocument = YAML.load('./docs/openapi.yaml');
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  console.log('API Documentation → http://localhost:3000/api-docs');
+} catch (err) {
+  console.log('Swagger docs not loaded (openapi.yaml missing or invalid):', err.message);
+}
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');

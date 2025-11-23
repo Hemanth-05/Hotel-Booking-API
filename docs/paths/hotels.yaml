@@ -1,0 +1,80 @@
+create:
+  post:
+    tags: [Hotels]
+    summary: "[ADMIN] Create hotel"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Hotel.yaml'
+    responses:
+      '201':
+        $ref: '../components/responses/201.yaml'
+
+adminAll:
+  get:
+    tags: [Hotels]
+    summary: "[ADMIN] Get all hotels"
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+
+ownerAll:
+  get:
+    tags: [Hotels]
+    summary: "[OWNER] Get my hotels"
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+
+byId:
+  patch:
+    tags: [Hotels]
+    summary: "[ADMIN | OWNER] Update hotel"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer }
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Hotel.yaml'
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+  delete:
+    tags: [Hotels]
+    summary: "[ADMIN] Delete hotel"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer }
+    responses:
+      '204':
+        description: No Content
+
+assignOwner:
+  patch:
+    tags: [Hotels]
+    summary: "[ADMIN] Assign owner"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer }
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ownerId]
+            properties:
+              ownerId: { type: integer }
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'

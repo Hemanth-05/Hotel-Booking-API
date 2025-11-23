@@ -1,0 +1,21 @@
+type: object
+required: [hotelId, roomNumber, capacity, pricePerNight]
+properties:
+  id:
+    type: integer
+    readOnly: true
+  hotelId:
+    type: integer
+  roomNumber:
+    type: integer
+    minimum: 1
+  capacity:
+    type: integer
+    minimum: 1
+  pricePerNight:
+    type: number
+    format: float
+    minimum: 0
+  isPublished:
+    type: boolean
+    default: false

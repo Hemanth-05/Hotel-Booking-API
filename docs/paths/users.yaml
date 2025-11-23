@@ -1,0 +1,55 @@
+me:
+  get:
+    tags: [Users]
+    summary: Get current user profile
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  $ref: '../components/schemas/User.yaml'
+  patch:
+    tags: [Users]
+    summary: Update profile
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name: { type: ['string', 'null'] }
+              password: { type: string, minLength: 8 }
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+  delete:
+    tags: [Users]
+    summary: Delete account (soft delete)
+    responses:
+      '204':
+        description: No Content
+
+adminGetAll:
+  get:
+    tags: [Users]
+    summary: "[ADMIN] Get all users"
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+
+ownerGetGuests:
+  get:
+    tags: [Users]
+    summary: "[OWNER] Get guests of my hotel"
+    parameters:
+      - name: hotelId
+        in: path
+        required: true
+        schema: { type: integer }
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'

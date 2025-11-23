@@ -1,0 +1,15 @@
+type: object
+required: [id, email, role]
+properties:
+  id:
+    type: integer
+    readOnly: true
+  name:
+    type: ['string', 'null']
+  email:
+    type: string
+    format: email
+  role:
+    type: string
+    enum: [ADMIN, OWNER, GUEST]
+    default: GUEST

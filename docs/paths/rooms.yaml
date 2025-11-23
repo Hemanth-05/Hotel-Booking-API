@@ -1,0 +1,76 @@
+search:
+  get:
+    tags: [Rooms]
+    summary: Public – Search published rooms
+    parameters:
+      - name: city
+        in: query
+        schema: { type: string }
+      - name: capacity
+        in: query
+        schema: { type: integer, minimum: 1 }
+      - name: maxPrice
+        in: query
+        schema: { type: number }
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+
+create:
+  post:
+    tags: [Rooms]
+    summary: "[ADMIN | OWNER] Create room"
+    parameters:
+      - name: hotelId
+        in: path
+        required: true
+        schema: { type: integer }
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Room.yaml'
+    responses:
+      '201':
+        $ref: '../components/responses/201.yaml'
+
+byId:
+  get:
+    tags: [Rooms]
+    summary: Get room (public if published)
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer }
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+  patch:
+    tags: [Rooms]
+    summary: "[ADMIN | OWNER] Update room"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer }
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Room.yaml'
+    responses:
+      '200':
+        $ref: '../components/responses/200.yaml'
+  delete:
+    tags: [Rooms]
+    summary: "[ADMIN | OWNER] Delete room"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: integer }
+    responses:
+      '204':
+        description: No Content
