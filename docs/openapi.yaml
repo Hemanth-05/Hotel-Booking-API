@@ -1,18 +1,11 @@
 openapi: 3.1.0
 info:
   title: Hotel Booking API
-  description: Full-featured hotel management & booking system
+  description: Full hotel booking system
   version: 1.0.0
 
 servers:
   - url: http://localhost:3000/api
-    description: Development
-
-tags:
-  - name: Auth
-  - name: Users
-  - name: Hotels
-  - name: Rooms
 
 components:
   securitySchemes:
@@ -41,31 +34,33 @@ components:
 security:
   - bearerAuth: []
 
-# ← DÁN ĐOẠN PATHS MỚI VÀO ĐÂY
 paths:
   /auth/signup:
-    $ref: './paths/auth.yaml#/signup'
+    $ref: './paths/auth.yaml#/paths/signup'
   /auth/login:
-    $ref: './paths/auth.yaml#/login'
+    $ref: './paths/auth.yaml#/paths/login'
+
   /users/me:
-    $ref: './paths/users.yaml#/me'
+    $ref: './paths/users.yaml#/paths/me'
   /users/admin/users:
-    $ref: './paths/users.yaml#/adminGetAll'
+    $ref: './paths/users.yaml#/paths/adminGetAll'
   /users/owner/hotels/{hotelId}/guests:
-    $ref: './paths/users.yaml#/ownerGetGuests'
+    $ref: './paths/users.yaml#/paths/ownerGetGuests'
+
   /hotels:
-    $ref: './paths/hotels.yaml#/create'
+    $ref: './paths/hotels.yaml#/paths/create'
   /hotels/admin:
-    $ref: './paths/hotels.yaml#/adminAll'
+    $ref: './paths/hotels.yaml#/paths/adminAll'
   /hotels/owner:
-    $ref: './paths/hotels.yaml#/ownerAll'
+    $ref: './paths/hotels.yaml#/paths/ownerAll'
   /hotels/{id}:
-    $ref: './paths/hotels.yaml#/byId'
+    $ref: './paths/hotels.yaml#/paths/byId'
   /hotels/{id}/owner:
-    $ref: './paths/hotels.yaml#/assignOwner'
+    $ref: './paths/hotels.yaml#/paths/assignOwner'
+
   /rooms:
-    $ref: './paths/rooms.yaml#/search'
+    $ref: './paths/rooms.yaml#/paths/search'
   /rooms/hotels/{hotelId}/rooms:
-    $ref: './paths/rooms.yaml#/create'
+    $ref: './paths/rooms.yaml#/paths/create'
   /rooms/{id}:
-    $ref: './paths/rooms.yaml#/byId'
+    $ref: './paths/rooms.yaml#/paths/byId'

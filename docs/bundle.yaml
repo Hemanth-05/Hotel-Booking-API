@@ -1,18 +1,12 @@
 openapi: 3.1.0
 info:
   title: Hotel Booking API
-  description: Full-featured hotel management & booking system
+  description: Full hotel booking system
   version: 1.0.0
 servers:
   - url: http://localhost:3000/api
-    description: Development
 security:
   - bearerAuth: []
-tags:
-  - name: Auth
-  - name: Users
-  - name: Hotels
-  - name: Rooms
 paths:
   /auth/signup:
     post:
@@ -48,7 +42,7 @@ paths:
     post:
       tags:
         - Auth
-      summary: Login & get JWT
+      summary: Login
       requestBody:
         required: true
         content:
@@ -106,7 +100,7 @@ paths:
     delete:
       tags:
         - Users
-      summary: Delete account (soft delete)
+      summary: Delete account
       responses:
         '204':
           description: No Content
@@ -136,7 +130,7 @@ paths:
     post:
       tags:
         - Hotels
-      summary: '[ADMIN] Create hotel'
+      summary: '[ADMIN] Create new hotel'
       requestBody:
         required: true
         content:
@@ -150,10 +144,16 @@ paths:
     get:
       tags:
         - Hotels
-      summary: '[ADMIN] Get all hotels'
+      summary: '[ADMIN] Get all hotels (including unpublished)'
       responses:
         '200':
           $ref: '#/components/responses/200'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ../components/schemas/Hotel.yaml
   /hotels/owner:
     get:
       tags:
@@ -162,6 +162,12 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/200'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ../components/schemas/Hotel.yaml
   /hotels/{id}:
     patch:
       tags:
@@ -193,12 +199,12 @@ paths:
             type: integer
       responses:
         '204':
-          description: No Content
+          description: Hotel deleted successfully
   /hotels/{id}/owner:
     patch:
       tags:
         - Hotels
-      summary: '[ADMIN] Assign owner'
+      summary: '[ADMIN] Assign owner to hotel'
       parameters:
         - name: id
           in: path
@@ -216,9 +222,12 @@ paths:
               properties:
                 ownerId:
                   type: integer
+                  description: User ID of the new owner
       responses:
         '200':
           $ref: '#/components/responses/200'
+        '404':
+          $ref: '#/components/responses/404'
   /rooms:
     get:
       tags:
@@ -229,23 +238,46 @@ paths:
           in: query
           schema:
             type: string
+          description: Filter by city
         - name: capacity
           in: query
           schema:
             type: integer
             minimum: 1
+          description: Minimum number of guests
         - name: maxPrice
           in: query
           schema:
             type: number
+          description: Maximum price per night
       responses:
         '200':
           $ref: '#/components/responses/200'
+          description: List of available rooms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    hotelName:
+                      type: string
+                    roomNumber:
+                      type: integer
+                    capacity:
+                      type: integer
+                    pricePerNight:
+                      type: number
+                    isPublished:
+                      type: boolean
   /rooms/hotels/{hotelId}/rooms:
     post:
       tags:
         - Rooms
-      summary: '[ADMIN | OWNER] Create room'
+      summary: '[ADMIN | OWNER] Add new room to hotel'
       parameters:
         - name: hotelId
           in: path
@@ -265,7 +297,7 @@ paths:
     get:
       tags:
         - Rooms
-      summary: Get room (public if published)
+      summary: Get room details (only if published)
       parameters:
         - name: id
           in: path
@@ -275,6 +307,12 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/200'
+          content:
+            application/json:
+              schema:
+                $ref: ../components/schemas/Room.yaml
+        '404':
+          $ref: '#/components/responses/404'
     patch:
       tags:
         - Rooms
@@ -296,7 +334,7 @@ paths:
     delete:
       tags:
         - Rooms
-      summary: '[ADMIN | OWNER] Delete room'
+      summary: '[ADMIN | OWNER] Delete room (blocked if has future bookings)'
       parameters:
         - name: id
           in: path
@@ -305,7 +343,10 @@ paths:
             type: integer
       responses:
         '204':
-          description: No Content
+          description: Room deleted
+        '400':
+          description: Cannot delete – has future bookings
+          $ref: '#/components/responses/400'
 components:
   securitySchemes:
     bearerAuth:
