@@ -7,11 +7,9 @@ info:
     name: API Support
     email: support@hotelbooking.com
 
-# First URL = instant pretty preview in Swagger Editor/Redoc
-# The rest = real servers used by code generators and production
 servers:
   - url: http://localhost:3000/api-docs
-    description: Swagger UI – Open this file directly for live interactive docs
+    description: Swagger UI – Open this file directly for live docs
   - url: http://localhost:3000/api
     description: Local development server
   - url: https://api.hotelbooking.com/api
@@ -37,7 +35,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: JWT token obtained after login. Example → Bearer <your-jwt-token>
+      description: JWT token obtained after login. Example: Bearer <token>
 
   schemas:
     User:
@@ -62,50 +60,39 @@ components:
       $ref: './components/responses/403.yaml'
     NotFound:
       $ref: './components/responses/404.yaml'
+    Conflict:
+      $ref: './components/responses/409.yaml'
 
-  # Optional but recommended for large projects
-  parameters: {}
-  examples: {}
-  requestBodies: {}
-  headers: {}
-  links: {}
-  callbacks: {}
-
-# Global security – all endpoints require JWT unless overridden
 security:
   - bearerAuth: []
 
 paths:
-  # ── Auth ─────────────────────────────────────
   /auth/signup:
-    $ref: './components/paths/auth.yaml#/signup'
+    $ref: './paths/auth.yaml#/signup'
   /auth/login:
-    $ref: './components/paths/auth.yaml#/login'
+    $ref: './paths/auth.yaml#/login'
 
-  # ── Users ────────────────────────────────────
   /users/me:
-    $ref: './components/paths/users.yaml#/me'
+    $ref: './paths/users.yaml#/me'
   /admin/users:
-    $ref: './components/paths/users.yaml#/adminGetAll'
+    $ref: './paths/users.yaml#/adminGetAll'
   /owner/hotels/{hotelId}/guests:
-    $ref: './components/paths/users.yaml#/ownerGetGuests'
+    $ref: './paths/users.yaml#/ownerGetGuests'
 
-  # ── Hotels ───────────────────────────────────
   /hotels:
-    $ref: './components/paths/hotels.yaml#/create'
+    $ref: './paths/hotels.yaml#/createHotel'
   /admin/hotels:
-    $ref: './components/paths/hotels.yaml#/adminAll'
+    $ref: './paths/hotels.yaml#/adminGetAllHotels'
   /owner/hotels:
-    $ref: './components/paths/hotels.yaml#/ownerAll'
+    $ref: './paths/hotels.yaml#/ownerGetMyHotels'
   /hotels/{id}:
-    $ref: './components/paths/hotels.yaml#/byId'
+    $ref: './paths/hotels.yaml#/hotelById'
   /hotels/{id}/owner:
-    $ref: './components/paths/hotels.yaml#/assignOwner'
+    $ref: './paths/hotels.yaml#/assignOwner'
 
-  # ── Rooms ────────────────────────────────────
   /rooms/search:
-    $ref: './components/paths/rooms.yaml#/search'
+    $ref: './paths/rooms.yaml#/searchRooms'
   /hotels/{hotelId}/rooms:
-    $ref: './components/paths/rooms.yaml#/create'
+    $ref: './paths/rooms.yaml#/createRoom'
   /rooms/{id}:
-    $ref: './components/paths/rooms.yaml#/byId'
+    $ref: './paths/rooms.yaml#/roomById'
