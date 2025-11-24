@@ -1,0 +1,62 @@
+Create:
+  type: object
+  required: [roomId, startDate, endDate, guests]
+  properties:
+    roomId:
+      type: integer
+      example: 312
+    startDate:
+      type: string
+      format: date
+      example: "2025-12-10"
+    endDate:
+      type: string
+      format: date
+      example: "2025-12-15"
+    guests:
+      type: integer
+      minimum: 1
+      maximum: 10
+      example: 2
+
+Update:
+  type: object
+  properties:
+    startDate:
+      type: string
+      format: date
+    endDate:
+      type: string
+      format: date
+    guests:
+      type: integer
+      minimum: 1
+
+Response:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 25
+    roomId:
+      type: integer
+    userId:
+      type: integer
+    startDate:
+      type: string
+      format: date
+    endDate:
+      type: string
+      format: date
+    guests:
+      type: integer
+    total:
+      type: number
+      example: 795.00
+    status:
+      type: string
+      enum: [BOOKED, CANCELED]
+      default: BOOKED
+    createdAt:
+      type: string
+      format: date-time

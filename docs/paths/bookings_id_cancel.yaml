@@ -1,0 +1,22 @@
+patch:
+  summary: Cancel booking (soft cancel – User/Owner/Admin)
+  tags: [Bookings]
+  security: [bearerAuth: []]
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema: { type: integer }
+  responses:
+    '200':
+      description: Booking canceled
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status: { type: string, enum: [CANCELED] }
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

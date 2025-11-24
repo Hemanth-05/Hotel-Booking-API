@@ -1,0 +1,51 @@
+get:
+  summary: Get room by ID (Public)
+  tags: [Rooms]
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema: { type: integer }
+  responses:
+    '200':
+      content:
+        application/json:
+          schema: { $ref: ../components/schemas/Room.yaml#/Public' }
+    '404':
+      $ref: ../components/responses/404.yaml
+
+patch:
+  summary: Update room (Admin or Owner)
+  tags: [Rooms]
+  security: [bearerAuth: []]
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema: { type: integer }
+  requestBody:
+    content:
+      application/json:
+        schema: { $ref: ../components/schemas/Room.yaml#/Update' }
+  responses:
+    '200':
+      $ref: ../components/responses/200.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+
+delete:
+  summary: Delete room (Admin or Owner)
+  tags: [Rooms]
+  security: [bearerAuth: []]
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema: { type: integer }
+  responses:
+    '204':
+      description: Room deleted
+    '403':
+      $ref: ../components/responses/403.yaml

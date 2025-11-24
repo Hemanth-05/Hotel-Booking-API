@@ -1,0 +1,5 @@
+description: Bad Request – Invalid input
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/Error.yaml

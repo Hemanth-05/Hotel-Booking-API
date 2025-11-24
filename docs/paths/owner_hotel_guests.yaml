@@ -1,0 +1,18 @@
+get:
+  summary: Get guests who booked in a specific owned hotel
+  tags: [Users]
+  security: [bearerAuth: []]
+  parameters:
+    - name: hotelId
+      in: path
+      required: true
+      schema: { type: integer }
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            type: array
+            items: { $ref: ../components/schemas/User.yaml }
+    '403':
+      $ref: ../components/responses/403.yaml

@@ -1,0 +1,23 @@
+patch:
+  summary: Update own profile
+  tags: [Users]
+  security: [bearerAuth: []]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name: { type: string }
+            password: { type: string, format: password }
+  responses:
+    '200':
+      $ref: ../components/responses/200.yaml
+
+delete:
+  summary: Delete own account (soft delete recommended)
+  tags: [Users]
+  security: [bearerAuth: []]
+  responses:
+    '204':
+      description: Account deleted

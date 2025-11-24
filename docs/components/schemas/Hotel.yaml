@@ -1,0 +1,49 @@
+Create:
+  type: object
+  required: [name, city, address]
+  properties:
+    name:
+      type: string
+      example: Skyline Resort
+    city:
+      type: string
+      example: Charlotte
+    address:
+      type: string
+      example: 100 Lake Drive
+    rating:
+      type: number
+      minimum: 0
+      maximum: 5
+      example: 4.8
+
+Update:
+  type: object
+  properties:
+    name:
+      type: string
+    city:
+      type: string
+    address:
+      type: string
+    rating:
+      type: number
+      minimum: 0
+      maximum: 5
+
+Response:
+  allOf:
+    - $ref: '#/Create'
+    - type: object
+      required: [id]
+      properties:
+        id:
+          type: integer
+          example: 1
+        ownerId:
+          type: integer
+          nullable: true
+          example: 5
+        createdAt:
+          type: string
+          format: date-time

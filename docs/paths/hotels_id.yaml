@@ -1,0 +1,41 @@
+patch:
+  summary: Update hotel details (Admin or Owner)
+  tags: [Hotels]
+  security: [bearerAuth: []]
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema: { type: integer }
+      example: 1
+  requestBody:
+    content:
+      application/json:
+        schema: { $ref: ../components/schemas/Hotel.yaml#/Update' }
+  responses:
+    '200':
+      $ref: ../components/responses/200.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml
+
+delete:
+  summary: Delete hotel (Admin only)
+  tags: [Hotels]
+  security: [bearerAuth: []]
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema: { type: integer }
+      example: 1
+  responses:
+    '204':
+      description: Hotel deleted
+    '403':
+      $ref: ../components/responses/403.yaml
+    '404':
+      $ref: ../components/responses/404.yaml

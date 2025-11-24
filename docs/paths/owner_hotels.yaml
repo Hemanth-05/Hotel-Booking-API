@@ -1,0 +1,14 @@
+get:
+  summary: Get hotels owned by current user (Owner only)
+  tags: [Hotels]
+  security: [bearerAuth: []]
+  responses:
+    '200':
+      description: Owned hotels
+      content:
+        application/json:
+          schema:
+            type: array
+            items: { $ref: ../components/schemas/Hotel.yaml#/Response' }
+    '403':
+      $ref: ../components/responses/403.yaml
