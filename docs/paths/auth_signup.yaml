@@ -10,7 +10,7 @@ post:
           required: [name, email, password]
           properties:
             name: { type: string, example: Hemanth }
-            email: { type: string, format: email, example: h@example.com }
+            email: { type: string, format: email, example: he@gmail.com }
             password: { type: string, format: password,example: 123456789, minLength: 4 }
   responses:
     '201':
