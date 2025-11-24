@@ -18,83 +18,83 @@ tags:
 
 paths:
   /api/auth/signup:
-    $ref: paths/auth.signup.yaml
+    $ref: ./paths/auth.signup.yaml
 
   /api/auth/login:
-    $ref: paths/auth.login.yaml
+    $ref: ./paths/auth.login.yaml
 
   /api/hotels:
-    $ref: paths/hotels.main.yaml
+    $ref: ./paths/hotels.main.yaml
 
   /api/admin/hotels:
-    $ref: paths/hotels.admin.yaml
+    $ref: ./paths/hotels.admin.yaml
 
   /api/owner/hotels:
-    $ref: paths/hotels.owner.yaml
+    $ref: ./paths/hotels.owner.yaml
 
   /api/hotels/{id}:
-    $ref: paths/hotels.id.yaml
+    $ref: ./paths/hotels.id.yaml
 
   /api/hotels/{hotelId}/rooms:
-    $ref: paths/rooms.byHotel.yaml
+    $ref: ./paths/rooms.byHotel.yaml
 
   /api/rooms:
-    $ref: paths/rooms.main.yaml
+    $ref: ./paths/rooms.main.yaml
 
   /api/rooms/{id}:
-    $ref: paths/rooms.id.yaml
+    $ref: ./paths/rooms.id.yaml
 
   /api/bookings:
-    $ref: paths/bookings.main.yaml
+    $ref: ./paths/bookings.main.yaml
 
   /api/bookings/{id}:
-    $ref: paths/bookings.id.yaml
+    $ref: ./paths/bookings.id.yaml
 
   /api/owner/bookings:
-    $ref: paths/bookings.owner.yaml
+    $ref: ./paths/bookings.owner.yaml
 
   /api/admin/bookings:
-    $ref: paths/bookings.admin.yaml
+    $ref: ./paths/bookings.admin.yaml
 
   /api/admin/users:
-    $ref: paths/users.admin.yaml
+    $ref: ./paths/users.admin.yaml
 
   /api/owner/hotels/{hotelId}/guests:
-    $ref: paths/users.guests.yaml
+    $ref: ./paths/users.guests.yaml
 
   /api/users/me:
-    $ref: paths/users.me.yaml
+    $ref: ./paths/users.me.yaml
 
 
 components:
   schemas:
     Hotel:
-      $ref: components/schemas/Hotel.yaml
+      $ref: ./components/schemas/Hotel.yaml
 
     Room:
-      $ref: components/schemas/Room.yaml
+      $ref: ./components/schemas/Room.yaml
 
     Booking:
-      $ref: components/schemas/Booking.yaml
+      $ref: ./components/schemas/Booking.yaml
 
     User:
-      $ref: components/schemas/User.yaml
+      $ref: ./components/schemas/User.yaml
 
     LoginResponse:
-      $ref: components/schemas/Auth.yaml
+      $ref: ./components/schemas/Auth.yaml
 
   responses:
     ErrorResponse:
-      $ref: components/responses/ErrorResponse.yaml
+      $ref: ./components/responses/ErrorResponse.yaml
 
     Unauthorized:
-      $ref: components/responses/Unauthorized.yaml
+      $ref: ./components/responses/Unauthorized.yaml
 
     Forbidden:
-      $ref: components/responses/Forbidden.yaml
+      $ref: ./components/responses/Forbidden.yaml
 
     NotFound:
-      $ref: components/responses/NotFound.yaml
+      $ref: ./components/responses/NotFound.yaml
 
   securitySchemes:
     bearerAuth:
