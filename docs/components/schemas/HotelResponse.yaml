@@ -1,0 +1,26 @@
+  type: object
+  required: [id, name, city, address]
+  properties:
+    id:
+      type: integer
+      example: 1
+    name:
+      type: string
+      example: Skyline Resort
+    city:
+      type: string
+      example: Charlotte
+    address:
+      type: string
+      example: 100 Lake Drive
+    rating:
+      type: number
+      example: 4.8
+    ownerId:
+      type: integer
+      nullable: true
+      example: 5
+    createdAt:
+      type: string
+      format: date-time
+      example: "2025-04-05T10:00:00Z"

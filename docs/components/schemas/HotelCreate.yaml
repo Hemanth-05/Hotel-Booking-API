@@ -1,4 +1,3 @@
-Create:
   type: object
   required: [name, city, address]
   properties:
@@ -17,44 +16,5 @@ Create:
       maximum: 5
       example: 4.8
 
-Update:
-  type: object
-  properties:
-    name:
-      type: string
-    city:
-      type: string
-    address:
-      type: string
-    rating:
-      type: number
-      minimum: 0
-      maximum: 5
 
-Response:
-  type: object
-  required: [id, name, city, address]
-  properties:
-    id:
-      type: integer
-      example: 1
-    name:
-      type: string
-      example: Skyline Resort
-    city:
-      type: string
-      example: Charlotte
-    address:
-      type: string
-      example: 100 Lake Drive
-    rating:
-      type: number
-      example: 4.8
-    ownerId:
-      type: integer
-      nullable: true
-      example: 5
-    createdAt:
-      type: string
-      format: date-time
-      example: "2025-04-05T10:00:00Z"
+
