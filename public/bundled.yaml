@@ -43,6 +43,7 @@ paths:
                 password:
                   type: string
                   format: password
+                  example: 123456789
                   minLength: 4
       responses:
         '201':
@@ -631,185 +632,24 @@ components:
             - OWNER
             - GUEST
           default: GUEST
-    Hotel:
-      Create:
-        type: object
-        required:
-          - name
-          - city
-          - address
-        properties:
-          name:
-            type: string
-            example: Skyline Resort
-          city:
-            type: string
-            example: Charlotte
-          address:
-            type: string
-            example: 100 Lake Drive
-          rating:
-            type: number
-            minimum: 0
-            maximum: 5
-            example: 4.8
-      Update:
-        type: object
-        properties:
-          name:
-            type: string
-          city:
-            type: string
-          address:
-            type: string
-          rating:
-            type: number
-            minimum: 0
-            maximum: 5
-      Response:
-        allOf:
-          - $ref: '#/components/schemas/Create'
-          - type: object
-            required:
-              - id
-            properties:
-              id:
-                type: integer
-                example: 1
-              ownerId:
-                type: integer
-                nullable: true
-                example: 5
-              createdAt:
-                type: string
-                format: date-time
-    Room:
-      Create:
-        type: object
-        required:
-          - roomNumber
-          - capacity
-          - pricePerNight
-        properties:
-          roomNumber:
-            type: string
-            example: '402'
-          capacity:
-            type: integer
-            minimum: 1
-            example: 3
-          pricePerNight:
-            type: number
-            minimum: 0
-            example: 159
-          amenities:
-            type: array
-            items:
-              type: string
-            example:
-              - WiFi
-              - TV
-              - Mini-fridge
-      Update:
-        type: object
-        properties:
-          roomNumber:
-            type: string
-          capacity:
-            type: integer
-            minimum: 1
-          pricePerNight:
-            type: number
-            minimum: 0
-          amenities:
-            type: array
-            items:
-              type: string
-      Public:
-        allOf:
-          - $ref: '#/components/schemas/Room_Create'
-          - type: object
-            properties:
-              id:
-                type: integer
-                example: 312
-              hotel:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                    example: Skyline Resort
-                  city:
-                    type: string
-    Booking:
-      Create:
-        type: object
-        required:
-          - roomId
-          - startDate
-          - endDate
-          - guests
-        properties:
-          roomId:
-            type: integer
-            example: 312
-          startDate:
-            type: string
-            format: date
-            example: '2025-12-10'
-          endDate:
-            type: string
-            format: date
-            example: '2025-12-15'
-          guests:
-            type: integer
-            minimum: 1
-            maximum: 10
-            example: 2
-      Update:
-        type: object
-        properties:
-          startDate:
-            type: string
-            format: date
-          endDate:
-            type: string
-            format: date
-          guests:
-            type: integer
-            minimum: 1
-      Response:
-        type: object
-        properties:
-          id:
-            type: integer
-            example: 25
-          roomId:
-            type: integer
-          userId:
-            type: integer
-          startDate:
-            type: string
-            format: date
-          endDate:
-            type: string
-            format: date
-          guests:
-            type: integer
-          total:
-            type: number
-            example: 795
-          status:
-            type: string
-            enum:
-              - BOOKED
-              - CANCELED
-            default: BOOKED
-          createdAt:
-            type: string
-            format: date-time
+    HotelCreate:
+      $ref: '#/components/schemas/Create'
+    HotelUpdate:
+      $ref: '#/components/schemas/Update'
+    HotelResponse:
+      $ref: '#/components/schemas/Response'
+    RoomCreate:
+      $ref: '#/components/schemas/Room_Create'
+    RoomUpdate:
+      $ref: '#/components/schemas/Room_Update'
+    RoomPublic:
+      $ref: '#/components/schemas/Public'
+    BookingCreate:
+      $ref: '#/components/schemas/Booking_Create'
+    BookingUpdate:
+      $ref: '#/components/schemas/Booking_Update'
+    BookingResponse:
+      $ref: '#/components/schemas/Booking_Response'
     Create:
       type: object
       required:
