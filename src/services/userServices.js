@@ -9,6 +9,7 @@ import {
     getAllUsers as repoGetAllUsers,      
     getHotelGuests as repoGetHotelGuests 
 } from "../respositories/userRepo.js";
+import prisma from "../config/db.js";
 
 export async function updateUser(userId, name, password, email) {
     const updateData = {};
@@ -43,6 +44,12 @@ export async function updateUser(userId, name, password, email) {
 
 
 export async function deleteUser(userId) {
+    // Cancel this user's bookings, then mask user data
+    await prisma.booking.updateMany({
+        where: { guestId: userId },
+        data: { status: "CANCELLED" },
+    });
+
     return await repoDeleteUser(userId);
 }
 

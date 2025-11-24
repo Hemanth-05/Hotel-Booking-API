@@ -7,6 +7,9 @@
   "dev": "node --env-file=.env --watch src/server.js",
   "docs:build": "npx @redocly/cli bundle docs/openapi.yaml --o public/bundled.yaml"
   },
+  "prisma": {
+  "seed": "node prisma/seed.js"
+},
   "author": "Team 12",
   "type": "module",
   "license": "ISC",
