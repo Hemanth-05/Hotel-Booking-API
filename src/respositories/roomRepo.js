@@ -67,6 +67,7 @@ export async function findFutureBookingForRoom(roomId) {
   return prisma.booking.findFirst({
     where: {
       roomId,
+      status: { not: "CANCELLED" },
       startDate: {
         gt: new Date(),
       },
