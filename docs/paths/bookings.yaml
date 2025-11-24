@@ -6,12 +6,12 @@ post:
     required: true
     content:
       application/json:
-        schema: { $ref: ../components/schemas/Booking.yaml#/Create }
+        schema: { $ref: ../components/schemas/BookingCreate.yaml }
   responses:
     '201':
       content:
         application/json:
-          schema: { $ref: ../components/schemas/Booking.yaml#/Response }
+          schema: { $ref: ../components/schemas/BookingResponse.yaml }
     '400':
       $ref: ../components/responses/400.yaml
     '403':
@@ -27,4 +27,4 @@ get:
         application/json:
           schema:
             type: array
-            items: { $ref: ../components/schemas/Booking.yaml#/Response }
+            items: { $ref: ../components/schemas/BookingResponse.yaml }

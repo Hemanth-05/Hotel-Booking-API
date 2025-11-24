@@ -11,7 +11,7 @@ post:
     required: true
     content:
       application/json:
-        schema: { $ref: ../components/schemas/Room.yaml#/Create }
+        schema: { $ref: ../components/schemas/RoomCreate.yaml }
   responses:
     '201':
       $ref: ../components/responses/201.yaml

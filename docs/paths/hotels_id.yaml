@@ -11,7 +11,7 @@ patch:
   requestBody:
     content:
       application/json:
-        schema: { $ref: ../components/schemas/Hotel.yaml#/Update }
+        schema: { $ref: ../components/schemas/HotelUpdate.yaml }
   responses:
     '200':
       $ref: ../components/responses/200.yaml
