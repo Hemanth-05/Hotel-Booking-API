@@ -67,10 +67,10 @@ export const validateRoomIdParam = [
 ];
 
 export const validateListRooms = [
-  query("capacity")
+  query("minCapacity")
     .optional({ checkFalsy: true })
     .isInt({ min: 1 })
-    .withMessage("capacity must be a positive integer"),
+    .withMessage("minCapacity must be a positive integer"),
   query("maxPrice")
     .optional({ checkFalsy: true })
     .isFloat({ min: 0 })

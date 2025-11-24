@@ -47,7 +47,7 @@ export async function createRoomForHotel(hotelId, roomData, currentUser) {
 export async function listRooms(query) {
   const filters = {
     city: query.city,
-    capacity: query.capacity ? parseInt(query.capacity) : undefined,
+    minCapacity: query.minCapacity ? parseInt(query.minCapacity) : undefined,
     maxPrice: query.maxPrice ? parseFloat(query.maxPrice) : undefined,
   };
 
