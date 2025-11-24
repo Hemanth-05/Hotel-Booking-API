@@ -10,7 +10,7 @@ patch:
   requestBody:
     content:
       application/json:
-        schema: { $ref: ../components/schemas/Booking.yaml#/Update' }
+        schema: { $ref: ../components/schemas/Booking.yaml#/Update }
   responses:
     '200':
       $ref: ../components/responses/200.yaml

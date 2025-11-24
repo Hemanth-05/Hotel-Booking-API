@@ -21,4 +21,4 @@ get:
         application/json:
           schema:
             type: array
-            items: { $ref: ../components/schemas/Room.yaml#/Public' }
+            items: { $ref: ../components/schemas/Room.yaml#/Public }

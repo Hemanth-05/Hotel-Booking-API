@@ -10,7 +10,7 @@ get:
     '200':
       content:
         application/json:
-          schema: { $ref: ../components/schemas/Room.yaml#/Public' }
+          schema: { $ref: ../components/schemas/Room.yaml#/Public }
     '404':
       $ref: ../components/responses/404.yaml
 
@@ -26,7 +26,7 @@ patch:
   requestBody:
     content:
       application/json:
-        schema: { $ref: ../components/schemas/Room.yaml#/Update' }
+        schema: { $ref: ../components/schemas/Room.yaml#/Update }
   responses:
     '200':
       $ref: ../components/responses/200.yaml

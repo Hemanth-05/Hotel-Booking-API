@@ -6,7 +6,7 @@ post:
     required: true
     content:
       application/json:
-        schema: { $ref: ../components/schemas/Hotel.yaml#/Create' }
+        schema: { $ref: ../components/schemas/Hotel.yaml#/Create }
   responses:
     '201':
       $ref: ../components/responses/201.yaml
