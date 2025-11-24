@@ -11,7 +11,7 @@ post:
           properties:
             name: { type: string, example: Hemanth }
             email: { type: string, format: email, example: h@example.com }
-            password: { type: string, format: password, minLength: 4 }
+            password: { type: string, format: password,example: 123456789, minLength: 4 }
   responses:
     '201':
       description: User created successfully

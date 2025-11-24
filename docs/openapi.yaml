@@ -43,12 +43,29 @@ components:
       $ref: components/schemas/Error.yaml
     User:      
       $ref: components/schemas/User.yaml
-    Hotel:     
-      $ref: components/schemas/Hotel.yaml
-    Room:      
-      $ref: components/schemas/Room.yaml
-    Booking:   
-      $ref: components/schemas/Booking.yaml
+
+    HotelCreate:
+      $ref: components/schemas/Hotel.yaml#/Create
+    HotelUpdate:
+      $ref: components/schemas/Hotel.yaml#/Update
+    HotelResponse:
+      $ref: components/schemas/Hotel.yaml#/Response
+
+    
+    RoomCreate:
+      $ref: components/schemas/Room.yaml#/Create
+    RoomUpdate:
+      $ref: components/schemas/Room.yaml#/Update
+    RoomPublic:
+      $ref: components/schemas/Room.yaml#/Public
+
+    
+    BookingCreate:
+      $ref: components/schemas/Booking.yaml#/Create
+    BookingUpdate:
+      $ref: components/schemas/Booking.yaml#/Update
+    BookingResponse:
+      $ref: components/schemas/Booking.yaml#/Response
 
 security:
   - bearerAuth: []
