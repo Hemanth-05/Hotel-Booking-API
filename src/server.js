@@ -5,10 +5,6 @@ import userRoutes from './routes/userRoutes.js';
 import hotelRoutes from './routes/hotelRoutes.js';
 import roomRoutes from './routes/roomRoutes.js';
 
-//swagger api 
-import swaggerUi from 'swagger-ui-express';
-import YAML from 'yamljs';
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -23,10 +19,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/rooms', roomRoutes);
-
-//swager ui 
-const specs = YAML.load('./docs/openapi.yaml');
-app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
