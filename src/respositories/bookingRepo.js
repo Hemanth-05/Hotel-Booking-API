@@ -30,7 +30,11 @@ export function getOwnerBookingsFromDB(ownerId, hotelId) {
     },
     include: {
       guest: { select: { id: true, name: true, email: true } },
-      room: true
+      room: {
+        include: {
+          hotel: { select: { id: true, name: true } },
+        },
+      },
     }
   });
 }
@@ -38,8 +42,12 @@ export function getOwnerBookingsFromDB(ownerId, hotelId) {
 export function getAdminBookingsFromDB() {
   return prisma.booking.findMany({
     include: {
-      guest: true,
-      room: true
+      guest: { select: { id: true, name: true, email: true } },
+      room: {
+        include: {
+          hotel: { select: { id: true, name: true } },
+        },
+      },
     }
   });
 }
@@ -58,7 +66,7 @@ export function updateBookingInDB(id, data) {
 export function cancelBookingInDB(id) {
   return prisma.booking.update({
     where: { id },
-    data: { status: "CANCELED" }
+    data: { status: "CANCELLED" }
   });
 }
 
