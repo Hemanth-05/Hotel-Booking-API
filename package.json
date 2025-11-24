@@ -4,13 +4,15 @@
   "description": "Its an API for managing bookings for hotel",
   "main": "server.js",
   "scripts": {
-    "dev": "node --env-file=.env --watch src/server.js"
+  "dev": "node --env-file=.env --watch src/server.js",
+  "docs:build": "npx @redocly/cli bundle docs/openapi.yaml --o public/bundled.yaml"
   },
   "author": "Team 12",
   "type": "module",
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@redocly/cli": "^2.11.1",
     "eslint": "^9.29.0",
     "eslint-config-prettier": "^10.1.5",
     "globals": "^16.2.0",
@@ -25,6 +27,8 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-validator": "^7.3.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   }
 }

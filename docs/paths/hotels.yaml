@@ -1,0 +1,16 @@
+post:
+  summary: Create new hotel (Admin only)
+  tags: [Hotels]
+  security: [bearerAuth: []]
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema: { $ref: ../components/schemas/HotelCreate.yaml }
+  responses:
+    '201':
+      $ref: ../components/responses/201.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '403':
+      $ref: ../components/responses/403.yaml

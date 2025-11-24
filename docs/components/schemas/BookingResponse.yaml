@@ -1,0 +1,28 @@
+  type: object
+  required: [id, roomId, userId, startDate, endDate, guests, total, status]
+  properties:
+    id:
+      type: integer
+      example: 25
+    roomId:
+      type: integer
+    userId:
+      type: integer
+    startDate:
+      type: string
+      format: date
+    endDate:
+      type: string
+      format: date
+    guests:
+      type: integer
+    total:
+      type: number
+      example: 795.00
+    status:
+      type: string
+      enum: [BOOKED, CANCELED]
+      default: BOOKED
+    createdAt:
+      type: string
+      format: date-time

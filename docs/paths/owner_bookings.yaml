@@ -1,0 +1,16 @@
+get:
+  summary: Get bookings for owned hotels (Owner)
+  tags: [Bookings]
+  security: [bearerAuth: []]
+  parameters:
+    - name: hotelId
+      in: query
+      schema: { type: integer }
+  responses:
+    '200':
+      description: Bookings in owned hotels
+      content:
+        application/json:
+          schema:
+            type: array
+            items: { $ref: ../components/schemas/BookingResponse.yaml }

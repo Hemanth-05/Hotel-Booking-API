@@ -1,0 +1,15 @@
+  type: object
+  properties:
+    roomNumber:
+      type: string
+    capacity:
+      type: integer
+      minimum: 1
+    pricePerNight:
+      type: number
+      minimum: 0
+    amenities:
+      type: array
+      items:
+        type: string
+

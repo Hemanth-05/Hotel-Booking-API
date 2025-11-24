@@ -1,0 +1,12 @@
+  type: object
+  properties:
+    name:
+      type: string
+    city:
+      type: string
+    address:
+      type: string
+    rating:
+      type: number
+      minimum: 0
+      maximum: 5

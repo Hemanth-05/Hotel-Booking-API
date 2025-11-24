@@ -1,0 +1,12 @@
+  type: object
+  properties:
+    startDate:
+      type: string
+      format: date
+    endDate:
+      type: string
+      format: date
+    guests:
+      type: integer
+      minimum: 1
+

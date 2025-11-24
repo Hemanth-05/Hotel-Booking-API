@@ -1,0 +1,113 @@
+openapi: 3.1.0
+info:
+  title: Hotel Booking API – Team 12
+  description: Final Project ITIS 4166/5166 – Hemanth, Sriya, Thanh
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000/api
+    description: Local development server
+  - url: https://hotel-booking-team12.onrender.com/api
+    description: Production server
+
+tags:
+  - name: Auth
+  - name: Hotels
+  - name: Rooms
+  - name: Bookings
+  - name: Users
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    OK:           
+      $ref: components/responses/200.yaml
+    Created:      
+      $ref: components/responses/201.yaml
+    BadRequest:   
+      $ref: components/responses/400.yaml
+    Unauthorized: 
+      $ref: components/responses/401.yaml
+    Forbidden:    
+      $ref: components/responses/403.yaml
+    NotFound:     
+      $ref: components/responses/404.yaml
+
+  schemas:
+    Error:     
+      $ref: components/schemas/Error.yaml
+    User:      
+      $ref: components/schemas/User.yaml
+
+    HotelCreate:
+      $ref: components/schemas/HotelCreate.yaml
+    HotelUpdate:
+      $ref: components/schemas/HotelUpdate.yaml
+    HotelResponse:
+      $ref: components/schemas/HotelResponse.yaml
+
+    
+    RoomCreate:
+      $ref: components/schemas/RoomCreate.yaml
+    RoomUpdate:
+      $ref: components/schemas/RoomUpdate.yaml
+    RoomPublic:
+      $ref: components/schemas/RoomPublic.yaml
+
+    
+    BookingCreate:
+      $ref: components/schemas/BookingCreate.yaml
+    BookingUpdate:
+      $ref: components/schemas/BookingUpdate.yaml
+    BookingResponse:
+      $ref: components/schemas/BookingResponse.yaml
+
+security:
+  - bearerAuth: []
+
+paths:
+  /auth/signup:                     
+    $ref: paths/auth_signup.yaml
+  /auth/login:                      
+    $ref: paths/auth_login.yaml
+
+  /hotels:                          
+    $ref: paths/hotels.yaml
+  /hotels/{id}:                     
+    $ref: paths/hotels_id.yaml
+  /hotels/{id}/owner:               
+    $ref: paths/hotels_id_owner.yaml
+  /admin/hotels:                    
+    $ref: paths/admin_hotels.yaml
+  /owner/hotels:                    
+    $ref: paths/owner_hotels.yaml
+
+  /rooms:                           
+    $ref: paths/rooms.yaml
+  /rooms/{id}:                      
+    $ref: paths/rooms_id.yaml
+  /hotels/{hotelId}/rooms:          
+    $ref: paths/hotels_hotelId_rooms.yaml
+
+  /bookings:                        
+    $ref: paths/bookings.yaml
+  /bookings/{id}:                   
+    $ref: paths/bookings_id.yaml
+  /bookings/{id}/cancel:            
+    $ref: paths/bookings_id_cancel.yaml
+  /owner/bookings:                  
+    $ref: paths/owner_bookings.yaml
+  /admin/bookings:                  
+    $ref: paths/admin_bookings.yaml
+
+  /users/me:                        
+    $ref: paths/users_me.yaml
+  /admin/users:                     
+    $ref: paths/admin_users.yaml
+  /owner/hotels/{hotelId}/guests:   
+    $ref: paths/owner_hotel_guests.yaml

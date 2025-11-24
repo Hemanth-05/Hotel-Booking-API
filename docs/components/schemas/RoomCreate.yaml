@@ -1,0 +1,20 @@
+  type: object
+  required: [roomNumber, capacity, pricePerNight]
+  properties:
+    roomNumber:
+      type: string
+      example: "402"
+    capacity:
+      type: integer
+      minimum: 1
+      example: 3
+    pricePerNight:
+      type: number
+      minimum: 0
+      example: 159.00
+    amenities:
+      type: array
+      items:
+        type: string
+      example: ["WiFi", "TV", "Mini-fridge"]
+

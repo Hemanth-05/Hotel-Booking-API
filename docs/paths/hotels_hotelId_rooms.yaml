@@ -1,0 +1,21 @@
+post:
+  summary: Add room to hotel (Admin or Owner)
+  tags: [Rooms]
+  security: [bearerAuth: []]
+  parameters:
+    - name: hotelId
+      in: path
+      required: true
+      schema: { type: integer }
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema: { $ref: ../components/schemas/RoomCreate.yaml }
+  responses:
+    '201':
+      $ref: ../components/responses/201.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
+    '403':
+      $ref: ../components/responses/403.yaml

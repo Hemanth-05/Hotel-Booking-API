@@ -1,0 +1,20 @@
+post:
+  summary: Register a new user (default role GUEST)
+  tags: [Auth]
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [name, email, password]
+          properties:
+            name: { type: string, example: Hemanth }
+            email: { type: string, format: email, example: he@gmail.com }
+            password: { type: string, format: password,example: 123456789, minLength: 4 }
+  responses:
+    '201':
+      description: User created successfully
+      $ref: ../components/responses/201.yaml
+    '400':
+      $ref: ../components/responses/400.yaml
