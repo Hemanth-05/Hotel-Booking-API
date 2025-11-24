@@ -1,8 +1,0 @@
-get:
-  tags: [Users]
-  summary: Get guests who booked rooms in owner's hotel
-  security:
-    - bearerAuth: []
-  responses:
-    200:
-      description: Guest list

@@ -1,8 +1,0 @@
-get:
-  tags: [Bookings]
-  summary: Admin get all bookings
-  security:
-    - bearerAuth: []
-  responses:
-    200:
-      description: All bookings

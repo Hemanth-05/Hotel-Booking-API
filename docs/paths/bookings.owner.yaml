@@ -1,8 +1,0 @@
-get:
-  tags: [Bookings]
-  summary: Get bookings for owner’s hotels
-  security:
-    - bearerAuth: []
-  responses:
-    200:
-      description: Owner bookings

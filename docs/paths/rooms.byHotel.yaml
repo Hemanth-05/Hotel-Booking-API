@@ -1,8 +1,0 @@
-post:
-  tags: [Rooms]
-  summary: Create room under a hotel (Admin/Owner)
-  security:
-    - bearerAuth: []
-  responses:
-    201:
-      description: Room created
