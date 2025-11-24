@@ -36,20 +36,34 @@ Update:
         type: string
 
 Public:
-  allOf:
-    - $ref: '#/Create'
-    - type: object
+  type: object
+  required: [id, roomNumber, capacity, pricePerNight]
+  properties:
+    id:
+      type: integer
+      example: 312
+    roomNumber:
+      type: string
+      example: "402"
+    capacity:
+      type: integer
+      example: 3
+    pricePerNight:
+      type: number
+      example: 159.00
+    amenities:
+      type: array
+      items:
+        type: string
+      example: ["WiFi", "TV", "Mini-fridge"]
+    hotel:
+      type: object
       properties:
         id:
           type: integer
-          example: 312
-        hotel:
-          type: object
-          properties:
-            id:
-              type: integer
-            name:
-              type: string
-              example: Skyline Resort
-            city:
-              type: string
+        name:
+          type: string
+          example: Skyline Resort
+        city:
+          type: string
+          example: Charlotte

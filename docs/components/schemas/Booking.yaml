@@ -34,6 +34,7 @@ Update:
 
 Response:
   type: object
+  required: [id, roomId, userId, startDate, endDate, guests, total, status]
   properties:
     id:
       type: integer

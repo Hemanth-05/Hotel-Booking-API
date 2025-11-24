@@ -685,22 +685,90 @@ components:
           minimum: 0
           maximum: 5
     Response:
-      allOf:
-        - $ref: '#/components/schemas/Create'
-        - type: object
-          required:
-            - id
+      type: object
+      required:
+        - id
+        - name
+        - city
+        - address
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Skyline Resort
+        city:
+          type: string
+          example: Charlotte
+        address:
+          type: string
+          example: 100 Lake Drive
+        rating:
+          type: number
+          example: 4.8
+        ownerId:
+          type: integer
+          nullable: true
+          example: 5
+        createdAt:
+          type: string
+          format: date-time
+          example: '2025-04-05T10:00:00Z'
+    Public:
+      type: object
+      required:
+        - id
+        - roomNumber
+        - capacity
+        - pricePerNight
+      properties:
+        id:
+          type: integer
+          example: 312
+        roomNumber:
+          type: string
+          example: '402'
+        capacity:
+          type: integer
+          example: 3
+        pricePerNight:
+          type: number
+          example: 159
+        amenities:
+          type: array
+          items:
+            type: string
+          example:
+            - WiFi
+            - TV
+            - Mini-fridge
+        hotel:
+          type: object
           properties:
             id:
               type: integer
-              example: 1
-            ownerId:
-              type: integer
-              nullable: true
-              example: 5
-            createdAt:
+            name:
               type: string
-              format: date-time
+              example: Skyline Resort
+            city:
+              type: string
+              example: Charlotte
+    Room_Update:
+      type: object
+      properties:
+        roomNumber:
+          type: string
+        capacity:
+          type: integer
+          minimum: 1
+        pricePerNight:
+          type: number
+          minimum: 0
+        amenities:
+          type: array
+          items:
+            type: string
     Room_Create:
       type: object
       required:
@@ -727,41 +795,17 @@ components:
             - WiFi
             - TV
             - Mini-fridge
-    Public:
-      allOf:
-        - $ref: '#/components/schemas/Room_Create'
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 312
-            hotel:
-              type: object
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
-                  example: Skyline Resort
-                city:
-                  type: string
-    Room_Update:
-      type: object
-      properties:
-        roomNumber:
-          type: string
-        capacity:
-          type: integer
-          minimum: 1
-        pricePerNight:
-          type: number
-          minimum: 0
-        amenities:
-          type: array
-          items:
-            type: string
     Booking_Response:
       type: object
+      required:
+        - id
+        - roomId
+        - userId
+        - startDate
+        - endDate
+        - guests
+        - total
+        - status
       properties:
         id:
           type: integer
