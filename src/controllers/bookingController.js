@@ -10,7 +10,7 @@ import {
 } from "../services/bookingService.js";
 
 // CREATE booking
-export async function createBooking(req, res) {
+export async function createBooking(req, res, next) {
   try {
     const booking = await createBookingService({
       ...req.body,
@@ -18,22 +18,22 @@ export async function createBooking(req, res) {
     });
     return res.status(201).json(booking);
   } catch (err) {
-    return res.status(400).json({ error: err.message });
+    next(err);
   }
 }
 
 // USER – GET own bookings
-export async function getUserBookings(req, res) {
+export async function getUserBookings(req, res, next) {
   try {
     const bookings = await getUserBookingsService(req.user.id);
     return res.status(200).json(bookings);
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    next(err);
   }
 }
 
 // OWNER – GET bookings for owned hotels
-export async function getOwnerBookings(req, res) {
+export async function getOwnerBookings(req, res, next) {
   try {
     const bookings = await getOwnerBookingsService(
       req.user.id,
@@ -41,46 +41,46 @@ export async function getOwnerBookings(req, res) {
     );
     return res.status(200).json(bookings);
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    next(err);
   }
 }
 
 // ADMIN – GET all bookings
-export async function getAdminBookings(req, res) {
+export async function getAdminBookings(req, res, next) {
   try {
     const bookings = await getAdminBookingsService();
     return res.status(200).json(bookings);
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    next(err);
   }
 }
 
 // UPDATE booking
-export async function updateBooking(req, res) {
+export async function updateBooking(req, res, next) {
   try {
     const updated = await updateBookingService(Number(req.params.id), req.body);
     return res.status(200).json(updated);
   } catch (err) {
-    return res.status(400).json({ error: err.message });
+    next(err);
   }
 }
 
 // CANCEL booking
-export async function cancelBooking(req, res) {
+export async function cancelBooking(req, res, next) {
   try {
     const cancelled = await cancelBookingService(Number(req.params.id));
     return res.status(200).json(cancelled);
   } catch (err) {
-    return res.status(400).json({ error: err.message });
+    next(err);
   }
 }
 
 // DELETE (Admin)
-export async function deleteBooking(req, res) {
+export async function deleteBooking(req, res, next) {
   try {
     await deleteBookingService(Number(req.params.id));
     return res.status(204).send();
   } catch (err) {
-    return res.status(400).json({ error: err.message });
+    next(err);
   }
 }

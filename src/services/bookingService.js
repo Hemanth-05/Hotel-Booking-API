@@ -13,7 +13,11 @@ import prisma from "../config/db.js";
 
 export async function createBookingService({ roomId, startDate, endDate, guests, userId }) {
   const room = await prisma.room.findUnique({ where: { id: roomId } });
-  if (!room) throw new Error("Room not found");
+  if (!room) {
+    const err = new Error("Room not found");
+    err.status = 404;
+    throw err;
+  }
 
   if (!startDate || !endDate) {
     const err = new Error("startDate and endDate are required");
@@ -217,11 +221,29 @@ export function updateBookingService(id, data) {
 }
 
 export function cancelBookingService(id) {
-  return cancelBookingInDB(id);
+  return prisma.booking
+    .findUnique({ where: { id } })
+    .then((existing) => {
+      if (!existing) {
+        const err = new Error("Booking not found");
+        err.status = 404;
+        throw err;
+      }
+      return cancelBookingInDB(id);
+    });
 }
 
 export function deleteBookingService(id) {
-  return deleteBookingFromDB(id);
+  return prisma.booking
+    .findUnique({ where: { id } })
+    .then((existing) => {
+      if (!existing) {
+        const err = new Error("Booking not found");
+        err.status = 404;
+        throw err;
+      }
+      return deleteBookingFromDB(id);
+    });
 }
 
 export function getBookingByIdService(id) {
