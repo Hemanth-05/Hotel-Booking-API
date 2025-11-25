@@ -8,7 +8,7 @@ get:
     - name: minCapacity
       in: query
       schema: { type: integer }
-    - name: priceMax
+    - name: maxPrice
       in: query
       schema: { type: number }
   responses:
