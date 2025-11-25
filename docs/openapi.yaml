@@ -7,7 +7,7 @@ info:
 servers:
   - url: http://localhost:3000/api
     description: Local development server
-  - url: https://hotel-booking-api-mv9b.onrender.com/
+  - url: https://hotel-booking-api-mv9b.onrender.com/api
     description: Production server on render
 
 tags:
