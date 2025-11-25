@@ -25,12 +25,12 @@ export async function getRoomById(id) {
 }
 
 export async function getPublishedRooms(filters = {}) {
-  const { city, capacity, maxPrice } = filters;
+  const { city, minCapacity, maxPrice } = filters;
 
   return prisma.room.findMany({
     where: {
       isPublished: true,
-      ...(capacity && { capacity: { gte: capacity } }),
+      ...(minCapacity && { capacity: { gte: minCapacity } }),
       ...(maxPrice && { pricePerNight: { lte: maxPrice } }),
       ...(city && {
         hotel: {
@@ -67,6 +67,7 @@ export async function findFutureBookingForRoom(roomId) {
   return prisma.booking.findFirst({
     where: {
       roomId,
+      status: { not: "CANCELLED" },
       startDate: {
         gt: new Date(),
       },

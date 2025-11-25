@@ -1,5 +1,6 @@
 // src/services/roomService.js
 import prisma from "../config/db.js";
+import { Prisma } from "../generated/prisma/index.js";
 import {
   createRoom,
   getRoomById,
@@ -47,7 +48,7 @@ export async function createRoomForHotel(hotelId, roomData, currentUser) {
 export async function listRooms(query) {
   const filters = {
     city: query.city,
-    capacity: query.capacity ? parseInt(query.capacity) : undefined,
+    minCapacity: query.minCapacity ? parseInt(query.minCapacity) : undefined,
     maxPrice: query.maxPrice ? parseFloat(query.maxPrice) : undefined,
   };
 
@@ -122,5 +123,33 @@ export async function deleteRoomById(id, currentUser) {
     throw err;
   }
 
-  return deleteRoom(id);
+  // Block delete if any non-cancelled bookings exist (past or future)
+  const activeBooking = await prisma.booking.findFirst({
+    where: { roomId: id, status: { not: "CANCELLED" } },
+  });
+  if (activeBooking) {
+    const err = new Error("Cannot delete room: bookings exist for this room");
+    err.status = 400;
+    throw err;
+  }
+
+  // Clean up cancelled bookings to allow FK-safe delete
+  await prisma.booking.deleteMany({
+    where: { roomId: id, status: "CANCELLED" },
+  });
+
+  try {
+    return await deleteRoom(id);
+  } catch (err) {
+    // Handle FK constraint when bookings (past or future) still exist
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2003"
+    ) {
+      const error = new Error("Cannot delete room: bookings exist for this room");
+      error.status = 400;
+      throw error;
+    }
+    throw err;
+  }
 }

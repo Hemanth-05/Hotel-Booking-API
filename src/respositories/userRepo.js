@@ -54,7 +54,10 @@ export async function getHotelGuests(hotelId, ownerId) {
     }
 
     const guests = await prisma.booking.findMany({
-        where: { room: { hotelId } },
+        where: {
+            room: { hotelId },
+            status: { not: 'CANCELLED' },
+        },
         distinct: ['guestId'],
         select: { guest: { select: { id: true, name: true, email: true } } }
     });

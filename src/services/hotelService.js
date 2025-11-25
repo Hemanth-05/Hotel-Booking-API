@@ -30,5 +30,19 @@ export async function updateHotelServices(id, data) {
 }
 
 export async function deleteHotelServices(id) {
-  return await hotelRepo.remove(id).catch(handleNotFound);
+  try {
+    return await hotelRepo.remove(id);
+  } catch (err) {
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2003"
+    ) {
+      const error = new Error(
+        "Cannot delete hotel: remove or cancel associated rooms or bookings first"
+      );
+      error.status = 400;
+      throw error;
+    }
+    return handleNotFound(err);
+  }
 }
