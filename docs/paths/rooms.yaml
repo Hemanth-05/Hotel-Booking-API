@@ -5,12 +5,9 @@ get:
     - name: city
       in: query
       schema: { type: string }
-    - name: capacity
+    - name: minCapacity
       in: query
       schema: { type: integer }
-    - name: priceMin
-      in: query
-      schema: { type: number }
     - name: priceMax
       in: query
       schema: { type: number }
