@@ -41,8 +41,20 @@ export async function createRoomForHotel(hotelId, roomData, currentUser) {
     throw err;
   }
 
-  // Prisma will enforce @@unique([hotelId, roomNumber]) – you just catch the error in controller
-  return createRoom(hotelId, roomData);
+  try {
+    // Prisma enforces @@unique([hotelId, roomNumber]); surface a 409 instead of 500
+    return await createRoom(hotelId, roomData);
+  } catch (err) {
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2002"
+    ) {
+      const error = new Error("Room number already exists for this hotel");
+      error.status = 409;
+      throw error;
+    }
+    throw err;
+  }
 }
 
 export async function listRooms(query) {
