@@ -82,9 +82,9 @@ paths:
     $ref: paths/hotels_id.yaml
   /hotels/{id}/owner:               
     $ref: paths/hotels_id_owner.yaml
-  /admin/hotels:                    
+  /hotels/admin:                    
     $ref: paths/admin_hotels.yaml
-  /owner/hotels:                    
+  /hotels/owner:                    
     $ref: paths/owner_hotels.yaml
 
   /rooms:                           
