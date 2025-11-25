@@ -187,7 +187,7 @@ paths:
           $ref: '#/components/responses/400'
         '403':
           $ref: '#/components/responses/403'
-  /admin/hotels:
+  /hotels/admin:
     get:
       summary: Get all hotels (Admin only)
       tags:
@@ -205,7 +205,7 @@ paths:
                   $ref: '#/components/schemas/HotelResponse'
         '403':
           $ref: '#/components/responses/403'
-  /owner/hotels:
+  /hotels/owner:
     get:
       summary: Get hotels owned by current user (Owner only)
       tags:

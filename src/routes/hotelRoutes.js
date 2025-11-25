@@ -15,10 +15,10 @@ const router = express.Router();
 router.post("/", protect, restrictTo("ADMIN"), validateCreateHotel, createHotel);
 
 // GET ALL HOTELS – Admin only
-router.get("/admin", protect, restrictTo("ADMIN"), getAllHotels);
+router.get("/admin/hotels", protect, restrictTo("ADMIN"), getAllHotels);
 
 // GET OWNER’S HOTELS – Owner only
-router.get("/owner", protect, restrictTo("OWNER"), getOwnerHotels);
+router.get("/owner/hotels", protect, restrictTo("OWNER"), getOwnerHotels);
 
 // UPDATE HOTEL – Owner of hotel OR Admin
 router.patch("/:id",protect, restrictTo("ADMIN", "OWNER"), validateUpdateHotel, ownsHotel, updateHotel);
