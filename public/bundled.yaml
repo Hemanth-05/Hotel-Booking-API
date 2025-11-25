@@ -6,8 +6,8 @@ info:
 servers:
   - url: http://localhost:3000/api
     description: Local development server
-  - url: https://hotel-booking-team12.onrender.com/api
-    description: Production server
+  - url: https://hotel-booking-api-mv9b.onrender.com/
+    description: Production server on render
 security:
   - bearerAuth: []
 tags:
@@ -237,7 +237,7 @@ paths:
           in: query
           schema:
             type: integer
-        - name: priceMax
+        - name: maxPrice
           in: query
           schema:
             type: number
