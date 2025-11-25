@@ -7,6 +7,11 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
 
 export async function signUp(name, email, password) {
+    if (!email || !password) {
+        const err = new Error("Email and password are required");
+        err.status = 400;
+        throw err;
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
 
     try {
