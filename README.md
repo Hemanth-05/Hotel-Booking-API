@@ -77,7 +77,10 @@ This project follows industry-standard GitHub practices:
 
 ## 📖 API Documentation
 
-The API is documented using Swagger.
+> ⚠️ **Note:**  
+> The Swagger UI defaults to the **Local server**.  
+> Please use the server dropdown (top-left in Swagger) and switch to the **Production server** to test the deployed API.
+
 
 **Swagger UI:**  
 https://hotel-booking-api-mv9b.onrender.com/api-docs/
