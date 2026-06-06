@@ -4,12 +4,12 @@
   "description": "Its an API for managing bookings for hotel",
   "main": "server.js",
   "scripts": {
-  "dev": "node --env-file=.env --watch src/server.js",
-  "docs:build": "npx @redocly/cli bundle docs/openapi.yaml --o public/bundled.yaml"
+    "dev": "node --env-file=.env --watch src/server.js",
+    "docs:build": "npx @redocly/cli bundle docs/openapi.yaml --o public/bundled.yaml"
   },
   "prisma": {
-  "seed": "node prisma/seed.js"
-},
+    "seed": "node prisma/seed.js"
+  },
   "author": "Team 12",
   "type": "module",
   "license": "ISC",
@@ -27,6 +27,7 @@
   "dependencies": {
     "@prisma/client": "^6.19.0",
     "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-validator": "^7.3.0",
