@@ -39,7 +39,7 @@ function Login(props){
 
   const data = await response.json();
 
-  console.log(data.token);
+  props.userLogged(data.token);
   }
 
   return(
@@ -97,19 +97,42 @@ function Signup(props){
   )
 }
 
-
-
 function App() {
   const [authPage, setAuthPage] = useState("login");
+  const [token, setToken] = useState("");
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
 
   function onSwitchToChangeForm(){
   if(authPage == 'login') setAuthPage("signup");
   else setAuthPage("login");
   }
 
-  return <AuthLayout>
-    {authPage === "login" ? <Login switch = {onSwitchToChangeForm}/> : <Signup switch = {onSwitchToChangeForm}/>}
+  async function successLogin(loginToken){
+    setToken(loginToken);
+
+    const response = await fetch ('http://localhost:3000/api/users/me', {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${loginToken}`,
+      },
+    })
+    const data = await response.json();
+    setUserLoggedIn(true);
+    setUser(data.user);
+  }
+
+  if(userLoggedIn){
+    return <AuthLayout>
+      <h2>Welcome {user?.name}. Your role is {user?.role}</h2>
+    </AuthLayout>
+  }
+
+  else{
+    return <AuthLayout>
+    {authPage === "login" ? <Login switch = {onSwitchToChangeForm} userLogged = {successLogin} setToken = {setToken} token = {token}/> : <Signup switch = {onSwitchToChangeForm}/>}
   </AuthLayout>
+  }
 }
 
 export default App
