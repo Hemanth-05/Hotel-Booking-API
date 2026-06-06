@@ -1,0 +1,28 @@
+.full-browser{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.main-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    border: 1px solid black;
+    height: 100%;
+}
+
+.header{
+
+}
+
+.heading{
+    color: darkslategray;
+}
+
+.form-items{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

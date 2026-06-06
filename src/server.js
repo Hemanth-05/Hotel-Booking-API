@@ -4,6 +4,7 @@ import userRoutes from './routes/userRoutes.js';
 import hotelRoutes from './routes/hotelRoutes.js';
 import roomRoutes from './routes/roomRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
+import cors from "cors";
 
 //swagger api 
 import swaggerUi from 'swagger-ui-express';
@@ -23,6 +24,10 @@ const specs = YAML.load('./public/bundled.yaml');
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
 
 app.use(express.json());
+
+app.use(cors({
+  origin: "http://localhost:5173",
+}));
 
 //Root route
 app.get('/', (req, res) => {
