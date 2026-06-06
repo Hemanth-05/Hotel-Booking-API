@@ -20,7 +20,7 @@ function AuthLayout({ children }) {
   )
 }
 
-function Login(){
+function Login(props){
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
@@ -50,12 +50,13 @@ function Login(){
         <input id = "email" type="email" onChange = {(event) => setEmail(event.target.value)} required />
         <label htmlFor="password">Password</label> 
         <input id = "password" type="password" onChange = {(event) => setPassword(event.target.value)} required/>
+        <p>Already existing user? <button type = "button" onClick = {props.switch} >Sign up</button> </p>
         <button type = "submit"> Login </button>
       </form>
     </div>)
 }
 
-function Signup(){
+function Signup(props){
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -89,15 +90,25 @@ function Signup(){
         <input type="password" id = "password" required onChange = {(event) => setPassword(event.target.value)} />
         <label htmlFor="name" >Name</label>
         <input type="text" id = "name" placeholder = "Optional" onChange = {(event) => setName(event.target.value)}/>
+        <p>Already an existing user? <button type = "button" onClick = {props.switch} >Login</button></p>
         <button type = "submit"> Signup </button>
       </form>
     </div>
   )
 }
 
+
+
 function App() {
+  const [authPage, setAuthPage] = useState("login");
+
+  function onSwitchToChangeForm(){
+  if(authPage == 'login') setAuthPage("signup");
+  else setAuthPage("login");
+  }
+
   return <AuthLayout>
-    <Login />
+    {authPage === "login" ? <Login switch = {onSwitchToChangeForm}/> : <Signup switch = {onSwitchToChangeForm}/>}
   </AuthLayout>
 }
 
