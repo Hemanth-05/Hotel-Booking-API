@@ -3,6 +3,7 @@ import './App.css'
 import AuthLayout from './components/AuthLayout.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
+import WelcomePage from './pages/Welcome.jsx'
 
 function App() {
   const [authPage, setAuthPage] = useState("login");
@@ -57,7 +58,7 @@ function App() {
     localStorage.setItem("token", loginToken);
   }
 
-  function logout(){
+  function handleLogout(){
     localStorage.removeItem("token");
     setToken("");
     setUser(null);
@@ -65,17 +66,15 @@ function App() {
   }
 
   if(userLoggedIn){
-    return <AuthLayout>
-      <h2>Welcome {user?.name}. Your role is {user?.role}</h2>
-      <p>If you are done here: </p>
-      <button onClick = {logout}>Logout</button>
-    </AuthLayout>
+    return <WelcomePage name = {user?.name} role = {user?.role} logout = {handleLogout}/>
   }
 
   else{
-    return <AuthLayout>
-    {authPage === "login" ? <Login switch = {onSwitchToChangeForm} userLogged = {successLogin} setToken = {setToken} token = {token}/> : <Signup switch = {onSwitchToChangeForm}/>}
-  </AuthLayout>
+    return (<AuthLayout>
+    {authPage === "login" ? 
+    <Login switch = {onSwitchToChangeForm} userLogged = {successLogin}/> : 
+    <Signup switch = {onSwitchToChangeForm}/>}
+  </AuthLayout>)
   }
 }
 

@@ -19,7 +19,9 @@ function Login(props){
 
   const data = await response.json();
 
-  props.userLogged(data.token);
+  if(response.ok){
+    props.userLogged(data.token);
+  }
   }
 
   return(
