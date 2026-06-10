@@ -1,6 +1,6 @@
 import Header from './Header.jsx'
 
-function AuthLayout({ children }) {
+function MainLayout({ children }) {
   return (
     <div className="full-browser">
       <div className="main-page">
@@ -11,4 +11,4 @@ function AuthLayout({ children }) {
   )
 }
 
-export default AuthLayout;
+export default MainLayout;

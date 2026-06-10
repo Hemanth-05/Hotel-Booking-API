@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import AuthLayout from './components/AuthLayout.jsx'
-import Login from './pages/Login.jsx'
-import Signup from './pages/Signup.jsx'
 import WelcomePage from './pages/Welcome.jsx'
+import AuthPage from './pages/AuthPage.jsx'
+import MainLayout from './components/MainLayout.jsx'
+import LandingPage from './pages/LandingPage'
 
 function App() {
   const [authPage, setAuthPage] = useState("login");
@@ -66,15 +66,22 @@ function App() {
   }
 
   if(userLoggedIn){
-    return <WelcomePage name = {user?.name} role = {user?.role} logout = {handleLogout}/>
+    return(
+      <WelcomePage 
+      name = {user?.name} 
+      role = {user?.role} 
+      logout = {handleLogout} />
+    )
   }
 
   else{
-    return (<AuthLayout>
-    {authPage === "login" ? 
-    <Login switch = {onSwitchToChangeForm} userLogged = {successLogin}/> : 
-    <Signup switch = {onSwitchToChangeForm}/>}
-  </AuthLayout>)
+    return( 
+      // <AuthPage 
+      // authPage = {authPage} 
+      // onSwitchToChangeForm = {onSwitchToChangeForm} 
+      // successLogin = {successLogin} />
+      <LandingPage />
+    )
   }
 }
 

@@ -13,10 +13,6 @@
     height: 100%;
 }
 
-.header{
-
-}
-
 .heading{
     color: darkslategray;
 }
@@ -25,4 +21,19 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.outerCard{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5%;
+    width: 100%;
+
+}
+
+.innerCard{
+    width: 25%;
+    border: 1px solid black;
+    padding: 10px;
 }
