@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import WelcomePage from './pages/Welcome.jsx'
-import AuthPage from './pages/AuthPage.jsx'
 import MainLayout from './components/MainLayout.jsx'
 import LandingPage from './pages/LandingPage'
 import Login from './pages/Login.jsx'
@@ -53,10 +51,14 @@ function App() {
       },
     })
     const data = await response.json();
-    setUserLoggedIn(true);
-    setUser(data.user);
-
-    localStorage.setItem("token", loginToken);
+    if(response.ok){
+      setUserLoggedIn(true);
+      setUser(data.user);
+      localStorage.setItem("token", loginToken);
+    } else{
+      localStorage.removeItem("token");
+      setToken("");
+    }
   }
 
   function handleLogout(){
@@ -67,7 +69,7 @@ function App() {
   }
 
   if(mainPage == "Landing Page"){
-    return(<LandingPage loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus}/>);
+    return(<LandingPage loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}/>);
   }
   else if(mainPage == "Login"){
     return(<Login userLogged = {successLogin} mainPageStatus = {onSwitchToChangeStatus}/>)

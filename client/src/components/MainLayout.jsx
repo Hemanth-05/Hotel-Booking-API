@@ -4,7 +4,7 @@ function MainLayout(props) {
   return (
     <div className="full-browser">
       <div className="main-page">
-        <Header loginActive = {props.loginActive} activeUser = {props.activeUser} mainPageStatus = {props.mainPageStatus}/>
+        <Header loginActive = {props.loginActive} activeUser = {props.activeUser} mainPageStatus = {props.mainPageStatus} logoutFunction = {props.logoutFunction}/>
         {props.children}
       </div>
     </div>

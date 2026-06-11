@@ -6,6 +6,7 @@ function Header(props){
             return(
                 <div>
                     <p>{props.activeUser?.name}</p>
+                    <button onClick = {props.logoutFunction}> Logout </button>
                 </div>
             )
         }

@@ -41,7 +41,7 @@ function LandingPage(props){
     }, []);
     
     return(
-        <MainLayout loginActive = {props.loginActive} activeUser = {props.activeUser} mainPageStatus = {props.mainPageStatus}>
+        <MainLayout loginActive = {props.loginActive} activeUser = {props.activeUser} mainPageStatus = {props.mainPageStatus} logoutFunction = {props.logoutFunction}>
             <div className = "outerCard">
               {rooms.map(CreateRoomCards)}
             </div>
