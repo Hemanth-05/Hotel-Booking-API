@@ -27,7 +27,7 @@ function Signup(props){
         setName("");
         alert("User Created");
     }else{
-        alert(data.error);
+        alert(data.errors?.[0] || data.error || data.message || "Signup failed");
     }
     
   }
