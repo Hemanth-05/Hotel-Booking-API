@@ -21,7 +21,7 @@ function Login(props){
 
   if(response.ok){
     props.userLogged(data.token);
-  }
+    }
   }
 
   return(
@@ -32,7 +32,7 @@ function Login(props){
         <input id = "email" type="email" onChange = {(event) => setEmail(event.target.value)} required />
         <label htmlFor="password">Password</label> 
         <input id = "password" type="password" onChange = {(event) => setPassword(event.target.value)} required/>
-        <p>Already existing user? <button type = "button" onClick = {props.switch} >Sign up</button> </p>
+        <p>New user? <button type = "button" onClick = {() => props.mainPageStatus("Signup")} >Sign up</button> </p>
         <button type = "submit"> Login </button>
       </form>
     </div>)

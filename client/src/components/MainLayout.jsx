@@ -1,11 +1,11 @@
 import Header from './Header.jsx'
 
-function MainLayout({ children }) {
+function MainLayout(props) {
   return (
     <div className="full-browser">
       <div className="main-page">
-        <Header />
-        {children}
+        <Header loginActive = {props.loginActive} activeUser = {props.activeUser} mainPageStatus = {props.mainPageStatus}/>
+        {props.children}
       </div>
     </div>
   )

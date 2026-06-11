@@ -4,9 +4,11 @@ import WelcomePage from './pages/Welcome.jsx'
 import AuthPage from './pages/AuthPage.jsx'
 import MainLayout from './components/MainLayout.jsx'
 import LandingPage from './pages/LandingPage'
+import Login from './pages/Login.jsx'
+import Signup from './pages/Signup.jsx'
 
 function App() {
-  const [authPage, setAuthPage] = useState("login");
+  const [mainPage, setMainPage] = useState("Landing Page");
   const [token, setToken] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
@@ -37,9 +39,8 @@ function App() {
     checkSavedLogin();
   }, [])
 
-  function onSwitchToChangeForm(){
-  if(authPage == 'login') setAuthPage("signup");
-  else setAuthPage("login");
+  function onSwitchToChangeStatus(text){
+  setMainPage(text);
   }
 
   async function successLogin(loginToken){
@@ -65,23 +66,14 @@ function App() {
     setUserLoggedIn(false);
   }
 
-  if(userLoggedIn){
-    return(
-      <WelcomePage 
-      name = {user?.name} 
-      role = {user?.role} 
-      logout = {handleLogout} />
-    )
+  if(mainPage == "Landing Page"){
+    return(<LandingPage loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus}/>);
   }
-
-  else{
-    return( 
-      // <AuthPage 
-      // authPage = {authPage} 
-      // onSwitchToChangeForm = {onSwitchToChangeForm} 
-      // successLogin = {successLogin} />
-      <LandingPage />
-    )
+  else if(mainPage == "Login"){
+    return(<Login userLogged = {successLogin} mainPageStatus = {onSwitchToChangeStatus}/>)
+  }
+  else if(mainPage === "Signup"){
+    return(<Signup mainPageStatus = {onSwitchToChangeStatus}/>)
   }
 }
 

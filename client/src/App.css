@@ -13,6 +13,16 @@
     height: 100%;
 }
 
+.header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.auth-buttons{
+    height: 50%;
+}
+
 .heading{
     color: darkslategray;
 }
