@@ -22,7 +22,7 @@ function Header(props){
 
   return(
     <div className = "header">
-      <h1 className = "heading">Hotel Booking Platform</h1>
+      <h1 className = "heading" onClick = {() => props.mainPageStatus("Landing Page")}>Hotel Booking Platform</h1>
       <SubHeader />
     </div>
   );

@@ -4,12 +4,14 @@ import MainLayout from './components/MainLayout.jsx'
 import LandingPage from './pages/LandingPage'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
+import IndividualRoomCard from './pages/IndividualRoomCard.jsx'
 
 function App() {
   const [mainPage, setMainPage] = useState("Landing Page");
   const [token, setToken] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
   useEffect(() => {
     async function checkSavedLogin(){
@@ -68,14 +70,33 @@ function App() {
     setUserLoggedIn(false);
   }
 
+  function openRoomDetails(roomData){
+    setSelectedRoom(roomData);
+    setMainPage("Room Details");
+
+  }
+
   if(mainPage == "Landing Page"){
-    return(<LandingPage loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}/>);
+    return(<LandingPage loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout} openRoomDetails = {openRoomDetails}/>);
   }
   else if(mainPage == "Login"){
-    return(<Login userLogged = {successLogin} mainPageStatus = {onSwitchToChangeStatus}/>)
+    return(
+      <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout} >
+        <Login userLogged = {successLogin} mainPageStatus = {onSwitchToChangeStatus}/>
+      </MainLayout>
+    )
   }
-  else if(mainPage === "Signup"){
-    return(<Signup mainPageStatus = {onSwitchToChangeStatus}/>)
+  else if(mainPage == "Signup"){
+    return(
+      <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
+        <Signup mainPageStatus = {onSwitchToChangeStatus}/>
+      </MainLayout>
+    )
+  }
+  else if(mainPage == "Room Details"){
+    return(<MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
+      <IndividualRoomCard roomDetails = {selectedRoom} mainPageStatus = {onSwitchToChangeStatus} loginActive = {userLoggedIn}/>
+    </MainLayout>)
   }
 }
 

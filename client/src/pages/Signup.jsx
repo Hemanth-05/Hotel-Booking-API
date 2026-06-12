@@ -29,7 +29,6 @@ function Signup(props){
     }else{
         alert(data.errors?.[0] || data.error || data.message || "Signup failed");
     }
-    
   }
 
   return(
