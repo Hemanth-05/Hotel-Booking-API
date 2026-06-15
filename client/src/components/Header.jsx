@@ -5,7 +5,7 @@ function Header(props){
         if(props.loginActive){
             return(
                 <div>
-                    <p>{props.activeUser?.name}</p>
+                    <p onClick = {() => props.mainPageStatus("User Details")}>{props.activeUser?.name}</p>
                     <button onClick = {props.logoutFunction}> Logout </button>
                 </div>
             )

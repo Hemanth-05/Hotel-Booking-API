@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import MainLayout from './components/MainLayout.jsx'
 import LandingPage from './pages/LandingPage'
@@ -6,6 +7,8 @@ import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import IndividualRoomCard from './pages/IndividualRoomCard.jsx'
 import RoomBooking from './pages/RoomBooking.jsx'
+import UserAccount from './pages/UserAccount.jsx'
+import UpdateUserAccount from './pages/UpdateUserAccount.jsx'
 
 function App() {
   const [mainPage, setMainPage] = useState("Landing Page");
@@ -70,6 +73,7 @@ function App() {
     setToken("");
     setUser(null);
     setUserLoggedIn(false);
+    onSwitchToChangeStatus("Landing Page");
   }
 
   function openRoomDetails(roomData){
@@ -78,46 +82,75 @@ function App() {
 
   }
 
-  if(mainPage == "Landing Page"){
-    return(<LandingPage loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout} openRoomDetails = {openRoomDetails}/>);
-  }
-  else if(mainPage == "Login"){
-    return(
-      <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout} >
-        <Login userLogged = {successLogin} mainPageStatus = {onSwitchToChangeStatus}/>
-      </MainLayout>
-    )
-  }
-  else if(mainPage == "Signup"){
-    return(
-      <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
-        <Signup mainPageStatus = {onSwitchToChangeStatus}/>
-      </MainLayout>
-    )
-  }
-  else if(mainPage == "Room Details"){
-    return(
-    <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
-      <IndividualRoomCard roomDetails = {selectedRoom} mainPageStatus = {onSwitchToChangeStatus} loginActive = {userLoggedIn}/>
-    </MainLayout>
-    )
+  function updateUser(updatedUser){
+    setUser(updatedUser);
   }
 
-  else if(mainPage == "BookARoom"){
-    return(
-      <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
-        <RoomBooking roomId = {selectedRoom.id}/>
-      </MainLayout>
-    )
-  }
+  return(
+    <Routes>
+      <Route
+        path = "/"
+        element = {
+          <LandingPage  
+            loginActive = {userLoggedIn}
+            activeUser = {user} 
+            mainPageStatus = {onSwitchToChangeStatus} 
+            logoutFunction = {handleLogout} 
+            openRoomDetails = {openRoomDetails}
+          />
+        }
+        />
+    </Routes>
+  )
 
-  else if(mainPage == "User Details"){
-    return(
-      <MainLayout>
-        <UserAccount />
-      </MainLayout>
-    )
-  }
+  // if(mainPage == "Landing Page"){
+  //   return(<LandingPage loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout} openRoomDetails = {openRoomDetails}/>);
+  // }
+  // else if(mainPage == "Login"){
+  //   return(
+  //     <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout} >
+  //       <Login userLogged = {successLogin} mainPageStatus = {onSwitchToChangeStatus}/>
+  //     </MainLayout>
+  //   )
+  // }
+  // else if(mainPage == "Signup"){
+  //   return(
+  //     <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
+  //       <Signup mainPageStatus = {onSwitchToChangeStatus}/>
+  //     </MainLayout>
+  //   )
+  // }
+  // else if(mainPage == "Room Details"){
+  //   return(
+  //   <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
+  //     <IndividualRoomCard roomDetails = {selectedRoom} mainPageStatus = {onSwitchToChangeStatus} loginActive = {userLoggedIn}/>
+  //   </MainLayout>
+  //   )
+  // }
+
+  // else if(mainPage == "BookARoom"){
+  //   return(
+  //     <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
+  //       <RoomBooking roomId = {selectedRoom.id}/>
+  //     </MainLayout>
+  //   )
+  // }
+
+  // else if(mainPage == "User Details"){
+  //   return(
+  //     <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
+  //       <UserAccount activeUser = {user} mainPageStatus = {onSwitchToChangeStatus}/>
+  //     </MainLayout>
+  //   )
+  // }
+
+  // else if(mainPage == "Update User Details"){
+  //   return(
+  //     <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
+  //       <UpdateUserAccount activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} updateActiveUser = {updateUser}/>
+  //     </MainLayout>
+  //   )
+  // }
 }
 
 export default App
