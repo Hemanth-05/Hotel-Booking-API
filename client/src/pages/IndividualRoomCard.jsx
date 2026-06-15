@@ -3,7 +3,7 @@ function IndividualRoomCard(props){
     function Button(props){
         if(props.loginActive){
             return(
-                <button>{props.value}</button>
+                <button onClick = {() => props.mainPageStatus("BookARoom")}>{props.value}</button>
             )
         }
     }
@@ -13,7 +13,7 @@ function IndividualRoomCard(props){
             <p>{room.hotel.address}, {room.hotel.city}</p>
             <h3>Price: {room.pricePerNight}</h3>
             <h4>Capacity: {room.capacity}</h4>
-            <Button value = "Book Now" loginActive = {props.loginActive}/>
+            <Button value = "Book Now" loginActive = {props.loginActive} mainPageStatus = {props.mainPageStatus}/>
         </div>
     );
 }

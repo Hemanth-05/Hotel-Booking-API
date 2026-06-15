@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import IndividualRoomCard from './pages/IndividualRoomCard.jsx'
+import RoomBooking from './pages/RoomBooking.jsx'
 
 function App() {
   const [mainPage, setMainPage] = useState("Landing Page");
@@ -40,7 +41,8 @@ function App() {
   }, [])
 
   function onSwitchToChangeStatus(text){
-  setMainPage(text);
+    console.log("Changing page to:", text)
+    setMainPage(text);
   }
 
   async function successLogin(loginToken){
@@ -94,9 +96,27 @@ function App() {
     )
   }
   else if(mainPage == "Room Details"){
-    return(<MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
+    return(
+    <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
       <IndividualRoomCard roomDetails = {selectedRoom} mainPageStatus = {onSwitchToChangeStatus} loginActive = {userLoggedIn}/>
-    </MainLayout>)
+    </MainLayout>
+    )
+  }
+
+  else if(mainPage == "BookARoom"){
+    return(
+      <MainLayout loginActive = {userLoggedIn} activeUser = {user} mainPageStatus = {onSwitchToChangeStatus} logoutFunction = {handleLogout}>
+        <RoomBooking roomId = {selectedRoom.id}/>
+      </MainLayout>
+    )
+  }
+
+  else if(mainPage == "User Details"){
+    return(
+      <MainLayout>
+        <UserAccount />
+      </MainLayout>
+    )
   }
 }
 
