@@ -1,19 +1,42 @@
+import { useEffect, useState } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+
 function IndividualRoomCard(props){
-    const room = props.roomDetails;
-    function Button(props){
-        if(props.loginActive){
-            return(
-                <button onClick = {() => props.mainPageStatus("BookARoom")}>{props.value}</button>
-            )
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [room, setRoom] = useState(null);
+
+    useEffect(() => {
+        async function getRoomDetails(){
+            const response = await fetch(`http://localhost:3000/api/rooms/${id}`)
+            const data = await response.json();
+
+            if(response.ok){
+                setRoom(data);
+            }
         }
+        getRoomDetails()
+    }, [id])
+
+    if (!room) {
+        return <p>Loading room...</p>
     }
+
     return(
         <div className = "room-details-card">
             <h2>{room.hotel.name}</h2>
             <p>{room.hotel.address}, {room.hotel.city}</p>
             <h3>Price: {room.pricePerNight}</h3>
             <h4>Capacity: {room.capacity}</h4>
-            <Button value = "Book Now" loginActive = {props.loginActive} mainPageStatus = {props.mainPageStatus}/>
+            {props.loginActive ? (
+                <button onClick={() => navigate(`/rooms/${id}/book`)}>
+                Book Now
+                </button>
+            ) : (
+                <button onClick={() => navigate("/login")}>
+                Login to Book
+                </button>
+            )}
         </div>
     );
 }

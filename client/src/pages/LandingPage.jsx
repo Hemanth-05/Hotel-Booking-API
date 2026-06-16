@@ -1,20 +1,11 @@
 import { useState, useEffect } from "react";
 import MainLayout from "../components/MainLayout.jsx";
 import RoomCard from "../components/RoomCard.jsx";
+import { useNavigate } from "react-router-dom";
 
 function LandingPage(props){
+    const navigate = useNavigate();
     const [rooms, setRooms] = useState([]);
-
-    async function giveRoomInfo(room){
-        const response = await fetch(`http://localhost:3000/api/rooms/${room.id}`,{
-            method: "GET"
-        })
-        const data = await response.json();
-        if(response.ok){
-            console.log(data);
-            props.openRoomDetails(data);
-        }
-    }
 
     function CreateRoomCards(room){
       return <RoomCard 
@@ -24,7 +15,7 @@ function LandingPage(props){
         roomNumber = {room.roomNumber}
         capacity = {room.capacity}
         pricePerNight = {room.pricePerNight}
-        onCardClick = {() => giveRoomInfo(room)}
+        onCardClick = {() => navigate(`/rooms/${room.id}`)}
       />
     }
 
@@ -42,7 +33,7 @@ function LandingPage(props){
     }, []);
     
     return(
-        <MainLayout loginActive = {props.loginActive} activeUser = {props.activeUser} mainPageStatus = {props.mainPageStatus} logoutFunction = {props.logoutFunction}>
+        <MainLayout loginActive = {props.loginActive} activeUser = {props.activeUser} logoutFunction = {props.logoutFunction}>
             <div className = "outerCard">
               {rooms.map(CreateRoomCards)}
             </div>

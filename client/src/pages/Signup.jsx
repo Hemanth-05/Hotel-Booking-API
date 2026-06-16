@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Signup(props){
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +43,7 @@ function Signup(props){
         <input type="password" id = "password" value = {password} required onChange = {(event) => setPassword(event.target.value)} />
         <label htmlFor="name" >Name</label>
         <input type="text" id = "name" placeholder = "Optional" value = {name} onChange = {(event) => setName(event.target.value)}/>
-        <p>Already an existing user? <button type = "button" onClick = {() => props.mainPageStatus("Login")} >Login</button></p>
+        <p>Already an existing user? <button type = "button" onClick = {() => navigate("/Login")} >Login</button></p>
         <button type = "submit"> Signup </button>
       </form>
     </div>
