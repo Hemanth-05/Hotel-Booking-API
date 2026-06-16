@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom"
 
-function RoomBooking(props){
+function RoomBooking(){
+    const { id } = useParams();
     const [guests, setGuests] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
@@ -24,7 +26,7 @@ function RoomBooking(props){
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                roomId: props.roomId,
+                roomId: parseInt(id),
                 guests: parseInt(guests),
                 startDate: startDate,
                 endDate: endDate,
@@ -34,7 +36,7 @@ function RoomBooking(props){
         console.log(data);
 
         if(response.ok){
-            alert(`Room ${props.roomId} booked from ${startDate} to ${endDate}`);
+            alert(`Room ${id} booked from ${startDate} to ${endDate}`);
         }else{
             alert(data.error || data.errors);
         }

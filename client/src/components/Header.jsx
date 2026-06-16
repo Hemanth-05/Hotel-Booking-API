@@ -1,11 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header(props){
+    const navigate = useNavigate();
     function SubHeader(){
         if(props.loginActive){
             return(
                 <div>
-                    <p onClick = {() => props.mainPageStatus("User Details")}>{props.activeUser?.name}</p>
+                    <p onClick = {() => navigate("/account")}>{props.activeUser?.name}</p>
                     <button onClick = {props.logoutFunction}> Logout </button>
                 </div>
             )
@@ -13,8 +15,8 @@ function Header(props){
         else{
             return(
                 <div>
-                    <button className = "auth-buttons" onClick = {() => props.mainPageStatus("Login")}>Login</button>
-                    <button className = "auth-buttons" onClick = {() => props.mainPageStatus("Signup")}>Signup</button>
+                    <button className = "auth-buttons" onClick = {() => navigate("/login")}>Login</button>
+                    <button className = "auth-buttons" onClick = {() => navigate("/signup")}>Signup</button>
                 </div>
             )
         }   
@@ -22,7 +24,7 @@ function Header(props){
 
   return(
     <div className = "header">
-      <h1 className = "heading" onClick = {() => props.mainPageStatus("Landing Page")}>Hotel Booking Platform</h1>
+      <h1 className = "heading" onClick = {() => navigate("/")}>Hotel Booking Platform</h1>
       <SubHeader />
     </div>
   );

@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function UpdateUserAccount(props){
+    const navigate = useNavigate();
     const user = props.activeUser;
     const [userName, setUserName] = useState(user.name);
     const [password, setPassword] = useState("");
@@ -26,8 +28,8 @@ function UpdateUserAccount(props){
         const data = await response.json();
         console.log(data);
         if(response.ok){
-            props.mainPageStatus("User Details");
             props.updateActiveUser(data.user);
+            navigate("/account");
         }else{
             alert(data.error||data.errors)
         }

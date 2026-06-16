@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login(props){
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
@@ -22,7 +24,7 @@ function Login(props){
   if(response.ok){
     props.userLogged(data.token);
     console.log(data);
-    props.mainPageStatus("Landing Page");
+    navigate("/Landing Page");
     }
   }
 
@@ -34,7 +36,7 @@ function Login(props){
         <input id = "email" type="email" onChange = {(event) => setEmail(event.target.value)} required />
         <label htmlFor="password">Password</label> 
         <input id = "password" type="password" onChange = {(event) => setPassword(event.target.value)} required/>
-        <p>New user? <button type = "button" onClick = {() => props.mainPageStatus("Signup")} >Sign up</button> </p>
+        <p>New user? <button type = "button" onClick = {() => navigate("/Signup")} >Sign up</button> </p>
         <button type = "submit"> Login </button>
       </form>
     </div>)

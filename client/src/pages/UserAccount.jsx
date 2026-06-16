@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 function UserAccount(props){
+    const navigate = useNavigate();
     const user = props.activeUser;
     return(
         <div className = "user-account-table-div">
@@ -6,7 +9,7 @@ function UserAccount(props){
                 <tbody>
                     <tr>
                         <th>User Details</th>
-                        <td className = "user-details-edit-button" onClick = {() => props.mainPageStatus("Update User Details")}>Edit</td>
+                        <td className = "user-details-edit-button" onClick = {() => navigate("/account/edit")}>Edit</td>
                     </tr>
                     <tr>
                         <td>Username:</td>
