@@ -27,44 +27,45 @@ function UserBookings(){
         }
         getAllBookings();
     }, [])
-        function CreateBooking(booking){
-            return(
-                <div className = "booking-card">
-                    <div className = "booking-card-heading">
-                        <h2>{booking.hotelName}</h2>
-                        <h4>{booking.status}</h4>
-                    </div>
-                    <dl className = "booking-card-details">
-                        <div>
-                            <dt>Room Number: </dt>
-                            <dd>{booking.roomNumber}</dd>
-                        </div>
-                        <div>
-                            <dt>Guests: </dt>
-                            <dd>{booking.guests}</dd>
-                        </div>
-                        <div>
-                            <dt>Cost: </dt>
-                            <dd>{booking.cost}</dd>
-                        </div>
-                        <div>
-                            <dt>Start Date: </dt>
-                            <dd>{booking.startDate.slice(0, 10)}</dd>
-                        </div>
-                        <div>
-                            <dt>End Date: </dt>
-                            <dd>{booking.endDate.slice(0, 10)}</dd>
-                        </div>
-                    </dl>
+
+    function CreateBooking(booking){
+        return(
+            <div className = "booking-card">
+                <div className = "booking-card-heading">
+                    <h2>{booking.hotelName}</h2>
+                    <h4>{booking.status}</h4>
+                    <button>Edit</button>
                 </div>
-            )
-        }
+                <dl className = "booking-card-details">
+                    <div>
+                        <dt>Room Number: </dt>
+                        <dd>{booking.roomNumber}</dd>
+                    </div>
+                    <div>
+                        <dt>Guests: </dt>
+                        <dd>{booking.guests}</dd>
+                    </div>
+                    <div>
+                        <dt>Cost: </dt>
+                        <dd>{booking.cost}</dd>
+                    </div>
+                    <div>
+                        <dt>Start Date: </dt>
+                        <dd>{booking.startDate.slice(0, 10)}</dd>
+                    </div>
+                    <div>
+                        <dt>End Date: </dt>
+                        <dd>{booking.endDate.slice(0, 10)}</dd>
+                    </div>
+                </dl>
+            </div>
+        )
+    }
 
     return (
         <div className = "user-bookings-layout">
             <div className = "user-bookings-header">
                 <h2>User Bookings</h2>
-                <button>Edit</button>
             </div>
             <div className = "bookings">
                 {bookings.map(CreateBooking)}
