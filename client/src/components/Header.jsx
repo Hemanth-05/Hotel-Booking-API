@@ -6,7 +6,7 @@ function Header(props){
     function SubHeader(){
         if(props.loginActive){
             return(
-                <div>
+                <div className = "right-heading">
                     <p onClick = {() => navigate("/account")}>{props.activeUser?.name}</p>
                     <button onClick = {props.logoutFunction}> Logout </button>
                 </div>
@@ -14,7 +14,7 @@ function Header(props){
         }
         else{
             return(
-                <div>
+                <div className = "right-heading">
                     <button className = "auth-buttons" onClick = {() => navigate("/login")}>Login</button>
                     <button className = "auth-buttons" onClick = {() => navigate("/signup")}>Signup</button>
                 </div>

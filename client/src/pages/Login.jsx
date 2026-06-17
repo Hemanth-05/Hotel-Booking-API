@@ -24,7 +24,7 @@ function Login(props){
   if(response.ok){
     props.userLogged(data.token);
     console.log(data);
-    navigate("/Landing Page");
+    navigate("/");
     }
   }
 

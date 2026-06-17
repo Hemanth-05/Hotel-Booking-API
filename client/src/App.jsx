@@ -9,6 +9,7 @@ import IndividualRoomCard from './pages/IndividualRoomCard.jsx'
 import RoomBooking from './pages/RoomBooking.jsx'
 import UserAccount from './pages/UserAccount.jsx'
 import UpdateUserAccount from './pages/UpdateUserAccount.jsx'
+import UserBookings from './pages/UserBookings'
 
 function App() {
   const navigate = useNavigate();
@@ -141,6 +142,7 @@ function App() {
               logoutFunction = {handleLogout}
             >
               <UserAccount activeUser = {user}/>
+              <UserBookings />
             </MainLayout>
           }
         />
