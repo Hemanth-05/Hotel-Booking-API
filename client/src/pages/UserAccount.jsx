@@ -3,32 +3,39 @@ import { useNavigate } from "react-router-dom";
 function UserAccount(props){
     const navigate = useNavigate();
     const user = props.activeUser;
+    
+     if (!user) {
+    return <p>Loading account...</p>;
+  }
+
     return(
-        <div className = "user-account-table-div">
-            <table className = "user-account-table">
-                <tbody>
-                    <tr>
-                        <th>User Details</th>
-                        <td className = "user-details-edit-button" onClick = {() => navigate("/account/edit")}>Edit</td>
-                    </tr>
-                    <tr>
-                        <td>Username:</td>
-                        <td>{user.name}</td>
-                    </tr>
-                    <tr>
-                        <td>Password:</td>
-                        <td>********</td>
-                    </tr>
-                    <tr>
-                        <td>Email:</td>
-                        <td>{user.email}</td>
-                    </tr>
-                    <tr>
-                        <td>Role:</td>
-                        <td>{user.role}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div className="user-account-card">
+            <div className="user-account-header">
+                <h2>User Details</h2>
+                <button onClick = {() => navigate("/account/edit")}>Edit</button>
+            </div>
+
+            <dl className="user-details">
+                <div>
+                    <dt>Username</dt>
+                    <dd>{user.name}</dd>
+                </div>
+
+                <div>
+                    <dt>Password</dt>
+                    <dd>********</dd>
+                </div>
+
+                <div>
+                    <dt>Email</dt>
+                    <dd>{user.email}</dd>
+                </div>
+
+                <div>
+                    <dt>Role</dt>
+                    <dd>{user.role}</dd>
+                </div>
+            </dl>
         </div>
     )
 }

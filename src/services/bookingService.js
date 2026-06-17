@@ -80,6 +80,8 @@ export function getUserBookingsService(userId) {
       id: b.id,
       hotelName: b.room?.hotel?.name,
       roomNumber: b.room?.roomNumber,
+      startDate: b.startDate,
+      endDate: b.endDate,
       guests: b.guests,
       cost: b.total,
       username: b.guest?.name,
