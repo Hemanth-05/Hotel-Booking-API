@@ -9,7 +9,8 @@ import IndividualRoomCard from './pages/IndividualRoomCard.jsx'
 import RoomBooking from './pages/RoomBooking.jsx'
 import UserAccount from './pages/UserAccount.jsx'
 import UpdateUserAccount from './pages/UpdateUserAccount.jsx'
-import UserBookings from './pages/UserBookings'
+import UserBookings from './pages/UserBookings.jsx'
+import EditBooking from './pages/EditBooking.jsx'
 
 function App() {
   const navigate = useNavigate();
@@ -159,6 +160,20 @@ function App() {
                 activeUser = {user} 
                 updateActiveUser = {updateUser}
               />
+              <UserBookings />
+            </MainLayout>
+          }
+        />
+
+        <Route 
+          path = "bookings/:bookingId/edit"
+          element = {
+            <MainLayout
+              loginActive = {userLoggedIn} 
+              activeUser = {user}
+              logoutFunction = {handleLogout}
+            >
+              <EditBooking />
             </MainLayout>
           }
         />

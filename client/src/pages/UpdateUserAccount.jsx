@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 function UpdateUserAccount(props){
     const navigate = useNavigate();
     const user = props.activeUser;
+
     const [userName, setUserName] = useState(user.name);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState(user.email);
