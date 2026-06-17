@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import UserAccount from "./UserAccount.jsx";
+import { useNavigate } from "react-router-dom";
 
 function UserBookings(){
+    const navigate = useNavigate();
     const [bookings, setBookings] = useState([]);
     useEffect(() => {
         async function getAllBookings(){
@@ -34,7 +36,11 @@ function UserBookings(){
                 <div className = "booking-card-heading">
                     <h2>{booking.hotelName}</h2>
                     <h4>{booking.status}</h4>
-                    <button>Edit</button>
+                    <button onClick={() => navigate(`/bookings/${booking.id}/edit`, {
+                                            state: {booking},
+                                        })
+                                    }
+                    >Edit</button>
                 </div>
                 <dl className = "booking-card-details">
                     <div>
