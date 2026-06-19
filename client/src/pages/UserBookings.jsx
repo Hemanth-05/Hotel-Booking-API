@@ -36,11 +36,14 @@ function UserBookings(){
                 <div className = "booking-card-heading">
                     <h2>{booking.hotelName}</h2>
                     <h4>{booking.status}</h4>
-                    <button onClick={() => navigate(`/bookings/${booking.id}/edit`, {
-                                            state: {booking},
-                                        })
-                                    }
-                    >Edit</button>
+                    <div>
+                        <button onClick={() => navigate(`/bookings/${booking.id}/edit`, {
+                                                state: {booking},
+                                            })
+                                        }
+                        >Edit</button>
+                        <button onClick = {() => (navigate(`/bookings/${booking.id}/cancel`))}>Cancel Booking</button>
+                    </div>
                 </div>
                 <dl className = "booking-card-details">
                     <div>
