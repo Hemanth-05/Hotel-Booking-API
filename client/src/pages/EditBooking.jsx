@@ -9,7 +9,7 @@ function EditBooking(){
 
     const [startDate, setStartDate] = useState(booking?.startDate?.slice(0,10)|| "");
     const [endDate, setEndDate] = useState(booking?.endDate?.slice(0,10)|| "");
-    const [status, setStatus] = useState(booking?.status || "CONFIRMED");
+    const [status, setStatus] = useState(booking?.status || "");
     const [guests, setGuests] = useState(booking?.guests|| "");
 
     async function handleBookingUpdate(event){
@@ -79,7 +79,7 @@ function EditBooking(){
                     <div>
                         <dt><label htmlFor="status">Status </label></dt>
                         <dd>
-                            <select name="status" id="status" onChange = {(event) => setStatus(event.target.value)}>
+                            <select value = {status} name="status" id="status" onChange = {(event) => setStatus(event.target.value)}>
                                 <option value="CONFIRMED"> CONFIRMED </option>
                                 <option value="CANCELLED"> CANCELLED </option>
                             </select>

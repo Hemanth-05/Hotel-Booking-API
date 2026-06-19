@@ -11,6 +11,7 @@ import UserAccount from './pages/UserAccount.jsx'
 import UpdateUserAccount from './pages/UpdateUserAccount.jsx'
 import UserBookings from './pages/UserBookings.jsx'
 import EditBooking from './pages/EditBooking.jsx'
+import CancelBooking from './pages/CancelBooking.jsx'
 
 function App() {
   const navigate = useNavigate();
@@ -175,6 +176,13 @@ function App() {
             >
               <EditBooking />
             </MainLayout>
+          }
+        />
+
+        <Route 
+          path = "bookings/:bookingId/cancel"
+          element = {
+            <CancelBooking />
           }
         />
     </Routes>
