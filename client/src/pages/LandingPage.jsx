@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import MainLayout from "../components/MainLayout.jsx";
 import RoomCard from "../components/RoomCard.jsx";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../config/api.js";
 
 function LandingPage(props){
     const navigate = useNavigate();
@@ -15,13 +16,14 @@ function LandingPage(props){
         roomNumber = {room.roomNumber}
         capacity = {room.capacity}
         pricePerNight = {room.pricePerNight}
+        loginActive = {props.loginActive}
         onCardClick = {() => navigate(`/rooms/${room.id}`)}
       />
     }
 
     useEffect(() => {
       async function getRooms(){
-        const response = await fetch('http://localhost:3000/api/rooms', {
+        const response = await fetch(`${baseURL}/rooms`, {
           method: "GET",
         })
         const data = await response.json();

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../config/api.js";
 
 function UpdateUserAccount(props){
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ function UpdateUserAccount(props){
         event.preventDefault();
         const savedToken = localStorage.getItem("token");
 
-        const response = await fetch('http://localhost:3000/api/users/me', {
+        const response = await fetch(`${baseURL}/users/me`, {
             method: "PATCH",
             headers: {
                 Authorization: `Bearer ${savedToken}`,

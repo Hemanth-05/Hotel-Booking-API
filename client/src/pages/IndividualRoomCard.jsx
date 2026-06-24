@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import { baseURL } from "../config/api.js";
 
 function IndividualRoomCard(props){
     const { id } = useParams();
@@ -8,7 +9,7 @@ function IndividualRoomCard(props){
 
     useEffect(() => {
         async function getRoomDetails(){
-            const response = await fetch(`http://localhost:3000/api/rooms/${id}`)
+            const response = await fetch(`${baseURL}/rooms/${id}`)
             const data = await response.json();
 
             if(response.ok){

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { baseURL } from "../config/api.js";
 
 function CancelBooking(){
     const {bookingId} = useParams();
@@ -13,7 +14,7 @@ function CancelBooking(){
                 return;
             }
 
-            const response = await fetch(`http://localhost:3000/api/bookings/${bookingId}/cancel`, {
+            const response = await fetch(`${baseURL}/bookings/${bookingId}/cancel`, {
                 method: "PATCH",
                 headers:{
                     Authorization: `Bearer ${savedToken}`

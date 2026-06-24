@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom"
+import { baseURL } from "../config/api.js";
 
 function RoomBooking(){
     const { id } = useParams();
@@ -19,7 +20,7 @@ function RoomBooking(){
         return;
         }
 
-        const response = await fetch('http://localhost:3000/api/bookings', {
+        const response = await fetch(`${baseURL}/bookings`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${savedToken}`,

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import UserAccount from "./UserAccount.jsx";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../config/api.js";
 
 function UserBookings(){
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ function UserBookings(){
 
             if(!savedToken) return;
 
-            const response = await fetch('http://localhost:3000/api/bookings', {
+            const response = await fetch(`${baseURL}/bookings`, {
                 method: "GET",
                 headers:{
                     Authorization: `Bearer ${savedToken}`,

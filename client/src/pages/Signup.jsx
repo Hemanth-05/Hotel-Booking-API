@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from "../config/api.js";
 
 function Signup(props){
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ function Signup(props){
 
   async function handleSignup(event){
     event.preventDefault();
-    const response = await fetch('http://localhost:3000/api/auth/signup', {
+    const response = await fetch(`${baseURL}/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

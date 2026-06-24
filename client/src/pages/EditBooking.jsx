@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { baseURL } from "../config/api.js";
 
 function EditBooking(){
     const {bookingId} = useParams();
@@ -22,7 +23,7 @@ function EditBooking(){
 
         confirm("Are you sure you want to make the following changes");
 
-        const response = await fetch(`http://localhost:3000/api/bookings/${bookingId}`, {
+        const response = await fetch(`${baseURL}/bookings/${bookingId}`, {
             method: "PATCH",
             headers: {
                 Authorization: `Bearer ${savedToken}`,

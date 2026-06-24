@@ -12,6 +12,7 @@ import UpdateUserAccount from './pages/UpdateUserAccount.jsx'
 import UserBookings from './pages/UserBookings.jsx'
 import EditBooking from './pages/EditBooking.jsx'
 import CancelBooking from './pages/CancelBooking.jsx'
+import { baseURL } from './config/api.js'
 
 function App() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function App() {
 
       if(!savedToken) return;
 
-      const response = await fetch("http://localhost:3000/api/users/me", {
+      const response = await fetch(`${baseURL}/users/me`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${savedToken}`,
@@ -45,7 +46,7 @@ function App() {
 
   async function successLogin(loginToken){
 
-    const response = await fetch ('http://localhost:3000/api/users/me', {
+    const response = await fetch (`${baseURL}/users/me`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${loginToken}`,
