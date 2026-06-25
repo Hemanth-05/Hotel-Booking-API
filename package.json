@@ -5,6 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "node --env-file=.env --watch src/server.js",
+    "start": "node src/server.js",
+    "postinstall": "prisma generate",
     "docs:build": "npx @redocly/cli bundle docs/openapi.yaml --o public/bundled.yaml"
   },
   "prisma": {
