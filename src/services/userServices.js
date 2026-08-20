@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { Prisma } from "../generated/prisma/index.js";
 import {
     createUser,
-    findUserByEmail,
+    findUserByEmailForAuth,
     updateUser as repoUpdateUser,        
     deleteUser as repoDeleteUser,       
     getUserById as repoGetUserById,      
@@ -68,4 +68,4 @@ export async function getHotelGuests(hotelId, ownerId) {
     return await repoGetHotelGuests(hotelId, ownerId);
 }
 
-export { createUser, findUserByEmail };
+export { createUser, findUserByEmailForAuth };
