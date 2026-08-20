@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import prisma from '../config/db.js';
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const protect = async (req, res, next) => {
   let token;
@@ -18,9 +18,15 @@ export const protect = async (req, res, next) => {
     });
   }
 
+  let decoded;
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-
+    decoded = jwt.verify(token, JWT_SECRET);
+  } catch (err){
+    return res.status(401).json({
+      error: 'Invalid token. Please log in again.'
+    })
+  }
+  try {
     const currentUser = await prisma.user.findUnique({
       where: { id: decoded.id },
       select: { id: true, email: true, role: true, name: true }
@@ -35,8 +41,6 @@ export const protect = async (req, res, next) => {
     req.user = currentUser;
     next();
   } catch (err) {
-    return res.status(401).json({
-      error: 'Invalid token. Please log in again.'
-    });
+    next(err);
   }
 };
